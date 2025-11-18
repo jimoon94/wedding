@@ -32,9 +32,7 @@ export default function Hero() {
           >
             <div className="w-12 h-px bg-secondary" />
             <div className="text-4xl md:text-5xl font-bold text-black font-elegant">
-              08
-              <span className="block w-8 h-px bg-secondary/50 mx-auto my-2" />
-              01
+              Getting married
             </div>
             <div className="w-12 h-px bg-secondary" />
           </motion.div>
