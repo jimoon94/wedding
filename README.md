@@ -230,20 +230,24 @@ const SCRIPT_URL = '여기에_Apps_Script_웹앱_URL_입력'
    - 방화벽이나 보안 소프트웨어가 차단하는지 확인
    - 다른 네트워크에서 테스트
 
-### 5. 네이버 지도 API 설정
+### 5. 구글 지도 설정 (iframe 방식)
 
-1. [네이버 클라우드 플랫폼](https://www.ncloud.com/)에서 API 키 발급
-2. `components/Location.tsx`에서 API 키 입력:
+구글 지도 API 키 없이 iframe으로 지도를 표시할 수 있습니다.
+
+#### 방법 1: 구글 지도에서 직접 iframe 코드 얻기 (권장)
+
+1. 구글 지도에서 결혼식장 검색 (예: "더 바실리움")
+2. 검색 결과에서 해당 장소 클릭
+3. 우측 상단 "공유" 버튼 클릭
+4. "지도 퍼가기" 선택
+5. iframe 코드에서 `src` 속성의 URL 복사
+6. `components/Location.tsx`의 `mapIframeUrl`에 붙여넣기:
 
 ```typescript
-script.src = `https://openapi.map.naver.com/openapi/v3/maps.js?ncpClientId=YOUR_CLIENT_ID`
+const mapIframeUrl = '복사한_iframe_URL'
 ```
 
-3. 결혼식장 좌표 수정:
-
-```typescript
-const location = new window.naver.maps.LatLng(37.4113, 127.1276)
-```
+> **참고**: iframe 방식을 사용하면 API 키가 필요 없고 설정이 간단합니다.
 
 ### 6. 색상 테마 변경
 

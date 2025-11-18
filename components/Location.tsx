@@ -1,64 +1,36 @@
 'use client'
 
+import Image from 'next/image'
 import { motion } from 'framer-motion'
 import { useInView } from 'framer-motion'
-import { useRef, useEffect, useState } from 'react'
-
-declare global {
-  interface Window {
-    naver: any
-  }
-}
+import { useRef } from 'react'
 
 export default function Location() {
   const ref = useRef(null)
   const isInView = useInView(ref, { once: true, margin: "-100px" })
-  const mapRef = useRef<HTMLDivElement>(null)
-  const [mapLoaded, setMapLoaded] = useState(false)
-
-  useEffect(() => {
-    // 네이버 지도 API 로드
-    const script = document.createElement('script')
-    script.src = `https://openapi.map.naver.com/openapi/v3/maps.js?ncpClientId=YOUR_CLIENT_ID`
-    script.async = true
-    script.onload = () => setMapLoaded(true)
-    document.head.appendChild(script)
-
-    return () => {
-      document.head.removeChild(script)
-    }
-  }, [])
-
-  useEffect(() => {
-    if (mapLoaded && mapRef.current && window.naver) {
-      const location = new window.naver.maps.LatLng(37.4113, 127.1276) // 야탑동 좌표 (예시)
-      
-      const map = new window.naver.maps.Map(mapRef.current, {
-        center: location,
-        zoom: 17,
-      })
-
-      new window.naver.maps.Marker({
-        position: location,
-        map: map,
-        title: '더 바실리움 웨딩홀',
-      })
-    }
-  }, [mapLoaded])
+  
+  // 네이버 지도 iframe URL
+  // 실제 URL을 얻는 방법:
+  // 1. 네이버 지도(https://map.naver.com)에서 "더 바실리움 웨딩홀" 검색
+  // 2. 공유 버튼 클릭 > "지도 퍼가기" 선택
+  // 3. iframe 코드에서 src 속성의 URL을 복사하여 아래에 붙여넣기
+  // 
+  // 또는 아래와 같이 검색 결과를 직접 표시할 수도 있습니다:
+  const mapIframeUrl = 'https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d792.2530122732438!2d127.12260186965933!3d37.41319009825492!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x357ca7dfb5239483%3A0x68640942ad08c245!2zKOyjvCnrsJTsi6Trpqzsm4A!5e0!3m2!1sko!2skr!4v1763447190690!5m2!1sko!2skr'
 
   const handleCopyAddress = () => {
-    const address = '경기도 성남시 분당구 야탑동'
+    const address = '경기 성남시 분당구 양현로 322 코리아디자인센터'
     navigator.clipboard.writeText(address).then(() => {
       alert('주소가 복사되었습니다!')
     })
   }
 
   const openNaverMap = () => {
-    window.open('https://map.naver.com/v5/search/더%20바실리움%20웨딩홀', '_blank')
+    window.open('https://naver.me/GOPesFwZ', '_blank')
   }
 
   const openKakaoMap = () => {
-    window.open('https://map.kakao.com/link/search/더 바실리움 웨딩홀', '_blank')
+    window.open('https://place.map.kakao.com/518455120', '_blank')
   }
 
   return (
@@ -84,7 +56,16 @@ export default function Location() {
         >
           {/* 지도 */}
           <div className="w-full h-80 bg-gray-200 rounded-lg overflow-hidden shadow-lg">
-            <div ref={mapRef} className="w-full h-full" />
+            <iframe
+              src={mapIframeUrl}
+              width="100%"
+              height="100%"
+              style={{ border: 0 }}
+              allowFullScreen
+              loading="lazy"
+              referrerPolicy="no-referrer-when-downgrade"
+              className="w-full h-full"
+            />
           </div>
 
           {/* 주소 정보 */}
@@ -92,7 +73,7 @@ export default function Location() {
             <div className="space-y-4">
               <div>
                 <h3 className="text-lg font-elegant text-primary mb-2">더 바실리움 웨딩홀</h3>
-                <p className="text-gray-700 font-serif">경기도 성남시 분당구 야탑동</p>
+                <p className="text-gray-700 font-serif">경기 성남시 분당구 양현로 322 코리아디자인센터 8층</p>
               </div>
 
               <div className="flex gap-2">
@@ -127,16 +108,19 @@ export default function Location() {
               <div>
                 <div className="flex items-center gap-2 mb-2">
                   <div className="w-8 h-8 bg-primary rounded-full flex items-center justify-center">
-                    <svg className="w-5 h-5 text-white" fill="currentColor" viewBox="0 0 20 20">
-                      <path d="M8 16.5a1.5 1.5 0 11-3 0 1.5 1.5 0 013 0zM15 16.5a1.5 1.5 0 11-3 0 1.5 1.5 0 013 0z" />
-                      <path d="M3 4a1 1 0 00-1 1v10a1 1 0 001 1h1.05a2.5 2.5 0 014.9 0H10a1 1 0 001-1V5a1 1 0 00-1-1H3zM14 7a1 1 0 00-1 1v6.05A2.5 2.5 0 0115.95 16H17a1 1 0 001-1v-5a1 1 0 00-.293-.707l-2-2A1 1 0 0015 7h-1z" />
-                    </svg>
+                    <Image
+                      src="/icon/train.svg"
+                      alt="지하철 아이콘"
+                      width={20}
+                      height={20}
+                      className="w-5 h-5"
+                    />
                   </div>
                   <span className="font-bold text-gray-800">지하철</span>
                 </div>
                 <p className="text-gray-700 ml-10 font-serif leading-relaxed">
-                  신분당선 야탑역 2번 출구<br />
-                  도보 5분
+                  신분당선 야탑역<br />
+                  야탑역 ④번 출구 정면 홈 플러스(CGV) 앞 좌회전 → 성남종합버스터미널 지나 200m → KT분당센터 뒤편
                 </p>
               </div>
 
@@ -144,16 +128,19 @@ export default function Location() {
               <div>
                 <div className="flex items-center gap-2 mb-2">
                   <div className="w-8 h-8 bg-primary rounded-full flex items-center justify-center">
-                    <svg className="w-5 h-5 text-white" fill="currentColor" viewBox="0 0 20 20">
-                      <path d="M8 16.5a1.5 1.5 0 11-3 0 1.5 1.5 0 013 0zM15 16.5a1.5 1.5 0 11-3 0 1.5 1.5 0 013 0z" />
-                      <path fillRule="evenodd" d="M4 5a2 2 0 00-2 2v6a2 2 0 002 2V5zm0 11a1 1 0 102 0h8a1 1 0 102 0h2a2 2 0 002-2V7a2 2 0 00-2-2h-1.382a1 1 0 01-.894-.553L11.382 2.224A2 2 0 009.618 1H8.382a2 2 0 00-1.764 1.224L4.276 4.447A1 1 0 013.382 5H2v11zM3 7a1 1 0 011-1h12a1 1 0 011 1v3a1 1 0 01-1 1H4a1 1 0 01-1-1V7z" clipRule="evenodd" />
-                    </svg>
+                    <Image
+                      src="/icon/bus.svg"
+                      alt="셔틀 버스 아이콘"
+                      width={20}
+                      height={20}
+                      className="w-5 h-5"
+                    />
                   </div>
-                  <span className="font-bold text-gray-800">버스</span>
+                  <span className="font-bold text-gray-800">셔틀 버스</span>
                 </div>
                 <p className="text-gray-700 ml-10 font-serif leading-relaxed">
-                  야탑역 정류장 하차<br />
-                  주요 노선: 9, 52, 117, 330, 350
+                  야탑역 ④번 출구 택시 승강장 앞 (15분 간격)<br />
+                  (셔틀 차종: 스타리아) 
                 </p>
               </div>
 
@@ -167,7 +154,7 @@ export default function Location() {
                 </div>
                 <p className="text-gray-700 ml-10 font-serif leading-relaxed">
                   건물 내 주차장 이용 가능<br />
-                  3시간 무료 주차 지원
+                  축의대쪽 주차 등록하셔야합니다.(2시간 무료 주차 지원)
                 </p>
               </div>
             </div>
