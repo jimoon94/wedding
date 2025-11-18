@@ -22,7 +22,7 @@ export default function Guestbook() {
   const [isSubmitting, setIsSubmitting] = useState(false)
 
   // Google Apps Script Web App URL (나중에 실제 URL로 교체)
-  const SCRIPT_URL = 'YOUR_GOOGLE_APPS_SCRIPT_WEB_APP_URL'
+  const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbymMrMBTBJdi-Rtf_WAx6i6sIiVHmnyUVFlhR9bKT7bSmTOYQExnkpIJ52WQUV3hll9Kw/exec'
 
   // 메시지 불러오기
   useEffect(() => {
