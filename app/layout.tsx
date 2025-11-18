@@ -15,7 +15,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: '문지선 ❤️ 강은성 결혼식에 초대합니다',
     description: '2026년 8월 1일 오후 6시 30분 | 더 바실리움 웨딩홀',
-    images: ['/main_photo.jpg'],
+    images: ['https://wedding-theta-one.vercel.app/main_photo.jpg'],
   },
 }
 
