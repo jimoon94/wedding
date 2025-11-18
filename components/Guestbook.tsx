@@ -9,6 +9,7 @@ interface Message {
   message: string
   password: string
   timestamp: string
+  rowIndex: number
 }
 
 export default function Guestbook() {
@@ -31,10 +32,21 @@ export default function Guestbook() {
 
   const fetchMessages = async () => {
     try {
-      const response = await fetch(`${SCRIPT_URL}?action=get`)
+      const response = await fetch(`${SCRIPT_URL}?action=get`, {
+        method: 'GET',
+        redirect: 'follow', // 리다이렉트 따라가기
+      })
+      
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`)
+      }
+      
       const data = await response.json()
+      
       if (data.status === 'success') {
-        setMessages(data.messages)
+        setMessages(data.messages || [])
+      } else {
+        console.error('메시지 불러오기 실패:', data.message)
       }
     } catch (error) {
       console.error('메시지 불러오기 실패:', error)
@@ -48,20 +60,18 @@ export default function Guestbook() {
       alert('모든 항목을 입력해주세요.')
       return
     }
-
+  
     if (password.length < 4) {
       alert('비밀번호는 4자 이상 입력해주세요.')
       return
     }
-
+  
     setIsSubmitting(true)
-
+  
     try {
       const response = await fetch(SCRIPT_URL, {
         method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
+        redirect: 'follow',
         body: JSON.stringify({
           action: 'add',
           name: name.trim(),
@@ -69,7 +79,11 @@ export default function Guestbook() {
           password: password,
         }),
       })
-
+  
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`)
+      }
+  
       const data = await response.json()
       
       if (data.status === 'success') {
@@ -77,9 +91,9 @@ export default function Guestbook() {
         setName('')
         setMessage('')
         setPassword('')
-        fetchMessages()
+        await fetchMessages()
       } else {
-        alert('메시지 등록에 실패했습니다. 다시 시도해주세요.')
+        alert(`메시지 등록에 실패했습니다: ${data.message || '알 수 없는 오류'}`)
       }
     } catch (error) {
       console.error('메시지 전송 실패:', error)
@@ -89,31 +103,33 @@ export default function Guestbook() {
     }
   }
 
-  const handleDelete = async (index: number) => {
+  const handleDelete = async (rowIndex: number) => {
     const inputPassword = prompt('삭제하시려면 비밀번호를 입력해주세요:')
     
     if (!inputPassword) return
-
+  
     try {
       const response = await fetch(SCRIPT_URL, {
         method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
+        redirect: 'follow',
         body: JSON.stringify({
           action: 'delete',
-          index: index,
+          rowIndex: rowIndex,  // index 대신 rowIndex 사용
           password: inputPassword,
         }),
       })
-
+  
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`)
+      }
+  
       const data = await response.json()
       
       if (data.status === 'success') {
         alert('메시지가 삭제되었습니다.')
-        fetchMessages()
+        await fetchMessages()
       } else {
-        alert('비밀번호가 일치하지 않습니다.')
+        alert(data.message || '비밀번호가 일치하지 않습니다.')
       }
     } catch (error) {
       console.error('메시지 삭제 실패:', error)
@@ -195,46 +211,39 @@ export default function Guestbook() {
           transition={{ duration: 0.8, delay: 0.4 }}
           className="space-y-4"
         >
-          {messages.length === 0 ? (
-            <div className="bg-white rounded-lg p-8 shadow-md text-center text-gray-500 font-serif">
-              아직 등록된 메시지가 없습니다.<br />
-              첫 번째 축하 메시지를 남겨주세요!
-            </div>
-          ) : (
-            messages.map((msg, index) => (
-              <div
-                key={index}
-                className="bg-white rounded-lg p-6 shadow-md"
-              >
-                <div className="flex justify-between items-start mb-3">
-                  <div>
-                    <p className="font-bold text-gray-800">{msg.name}</p>
-                    <p className="text-xs text-gray-500 mt-1">
-                      {new Date(msg.timestamp).toLocaleDateString('ko-KR', {
-                        year: 'numeric',
-                        month: 'long',
-                        day: 'numeric',
-                        hour: '2-digit',
-                        minute: '2-digit',
-                      })}
-                    </p>
-                  </div>
-                  <button
-                    onClick={() => handleDelete(index)}
-                    className="text-gray-400 hover:text-red-500 transition-colors"
-                    title="삭제"
-                  >
-                    <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
-                    </svg>
-                  </button>
+          {messages.map((msg, index) => (
+            <div
+              key={index}
+              className="bg-white rounded-lg p-6 shadow-md"
+            >
+              <div className="flex justify-between items-start mb-3">
+                <div>
+                  <p className="font-bold text-gray-800">{msg.name}</p>
+                  <p className="text-xs text-gray-500 mt-1">
+                    {new Date(msg.timestamp).toLocaleDateString('ko-KR', {
+                      year: 'numeric',
+                      month: 'long',
+                      day: 'numeric',
+                      hour: '2-digit',
+                      minute: '2-digit',
+                    })}
+                  </p>
                 </div>
-                <p className="text-gray-700 whitespace-pre-wrap font-serif leading-relaxed">
-                  {msg.message}
-                </p>
+                <button
+                  onClick={() => handleDelete(msg.rowIndex)}  // index 대신 msg.rowIndex 사용
+                  className="text-gray-400 hover:text-red-500 transition-colors"
+                  title="삭제"
+                >
+                  <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+                  </svg>
+                </button>
               </div>
-            ))
-          )}
+              <p className="text-gray-700 whitespace-pre-wrap font-serif leading-relaxed">
+                {msg.message}
+              </p>
+            </div>
+          ))}
         </motion.div>
       </div>
     </section>

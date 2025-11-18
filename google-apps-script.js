@@ -1,16 +1,6 @@
-// Google Apps Script 코드
-// Google Sheets를 데이터베이스로 사용하기 위한 백엔드 코드
-// 
-// 사용 방법:
-// 1. Google Drive에서 새 스프레드시트 생성
-// 2. 확장 프로그램 > Apps Script 메뉴 선택
-// 3. 아래 코드를 붙여넣기
-// 4. 배포 > 새 배포 > 웹 앱으로 배포
-// 5. 액세스 권한: "모든 사용자"로 설정
-// 6. 배포 후 받은 URL을 Guestbook.tsx의 SCRIPT_URL에 입력
+// Google Apps Script 코드 - 삭제 기능 수정 버전
 
-// 스프레드시트 설정
-const SHEET_NAME = 'Messages'; // 시트 이름
+const SHEET_NAME = 'Messages';
 const COLUMNS = {
   TIMESTAMP: 0,
   NAME: 1,
@@ -18,53 +8,54 @@ const COLUMNS = {
   PASSWORD: 3
 };
 
-// 스프레드시트 가져오기
 function getSheet() {
   const ss = SpreadsheetApp.getActiveSpreadsheet();
   let sheet = ss.getSheetByName(SHEET_NAME);
   
-  // 시트가 없으면 생성
   if (!sheet) {
     sheet = ss.insertSheet(SHEET_NAME);
-    // 헤더 추가
     sheet.appendRow(['Timestamp', 'Name', 'Message', 'Password']);
   }
   
   return sheet;
 }
 
-// GET 요청 처리 - 메시지 목록 조회
+// GET 요청 처리
 function doGet(e) {
   try {
     const sheet = getSheet();
     const data = sheet.getDataRange().getValues();
     
     // 헤더 제외하고 데이터만 가져오기
-    const messages = data.slice(1).map(row => ({
+    const messages = data.slice(1).map((row, index) => ({
       timestamp: row[COLUMNS.TIMESTAMP],
       name: row[COLUMNS.NAME],
       message: row[COLUMNS.MESSAGE],
-      // 보안을 위해 비밀번호는 클라이언트에 전송하지 않음
+      rowIndex: index + 2 // 실제 시트의 행 번호 (헤더가 1행이므로 +2)
     })).reverse(); // 최신순 정렬
     
+    const output = JSON.stringify({
+      status: 'success',
+      messages: messages
+    });
+    
     return ContentService
-      .createTextOutput(JSON.stringify({
-        status: 'success',
-        messages: messages
-      }))
+      .createTextOutput(output)
       .setMimeType(ContentService.MimeType.JSON);
       
   } catch (error) {
+    const output = JSON.stringify({
+      status: 'error',
+      message: error.toString()
+    });
+    
     return ContentService
-      .createTextOutput(JSON.stringify({
-        status: 'error',
-        message: error.toString()
-      }))
+      .createTextOutput(output)
       .setMimeType(ContentService.MimeType.JSON);
   }
 }
 
-// POST 요청 처리 - 메시지 추가 및 삭제
+// POST 요청 처리
 function doPost(e) {
   try {
     const data = JSON.parse(e.postData.contents);
@@ -75,66 +66,94 @@ function doPost(e) {
       const timestamp = new Date();
       const name = data.name;
       const message = data.message;
-      const password = hashPassword(data.password); // 비밀번호 해싱
+      const password = hashPassword(data.password);
       
       sheet.appendRow([timestamp, name, message, password]);
       
+      const output = JSON.stringify({
+        status: 'success',
+        message: 'Message added successfully'
+      });
+      
       return ContentService
-        .createTextOutput(JSON.stringify({
-          status: 'success',
-          message: 'Message added successfully'
-        }))
+        .createTextOutput(output)
         .setMimeType(ContentService.MimeType.JSON);
     }
     
     // 메시지 삭제
     if (data.action === 'delete') {
-      const allData = sheet.getDataRange().getValues();
-      const rowIndex = data.index + 2; // 헤더(1) + 인덱스 조정
-      const reversedIndex = allData.length - data.index; // 역순 인덱스 계산
+      const rowIndex = data.rowIndex; // 프론트엔드에서 전달받은 실제 행 번호
+      const password = data.password;
       
-      if (reversedIndex > 0 && reversedIndex < allData.length) {
-        const storedPassword = allData[reversedIndex][COLUMNS.PASSWORD];
-        const inputPassword = hashPassword(data.password);
+      Logger.log('Delete request - rowIndex: ' + rowIndex);
+      
+      const allData = sheet.getDataRange().getValues();
+      Logger.log('Total rows: ' + allData.length);
+      
+      // rowIndex는 실제 시트의 행 번호 (1-based)
+      // allData는 0-based 배열
+      if (rowIndex >= 2 && rowIndex <= allData.length) {
+        const storedPassword = allData[rowIndex - 1][COLUMNS.PASSWORD];
+        const inputPassword = hashPassword(password);
+        
+        Logger.log('Stored password: ' + storedPassword);
+        Logger.log('Input password: ' + inputPassword);
         
         if (storedPassword === inputPassword) {
-          sheet.deleteRow(reversedIndex + 1);
+          sheet.deleteRow(rowIndex);
+          
+          const output = JSON.stringify({
+            status: 'success',
+            message: 'Message deleted successfully'
+          });
           
           return ContentService
-            .createTextOutput(JSON.stringify({
-              status: 'success',
-              message: 'Message deleted successfully'
-            }))
+            .createTextOutput(output)
             .setMimeType(ContentService.MimeType.JSON);
         } else {
+          const output = JSON.stringify({
+            status: 'error',
+            message: 'Incorrect password'
+          });
+          
           return ContentService
-            .createTextOutput(JSON.stringify({
-              status: 'error',
-              message: 'Incorrect password'
-            }))
+            .createTextOutput(output)
             .setMimeType(ContentService.MimeType.JSON);
         }
+      } else {
+        const output = JSON.stringify({
+          status: 'error',
+          message: 'Invalid index: rowIndex=' + rowIndex + ', totalRows=' + allData.length
+        });
+        
+        return ContentService
+          .createTextOutput(output)
+          .setMimeType(ContentService.MimeType.JSON);
       }
     }
     
+    const output = JSON.stringify({
+      status: 'error',
+      message: 'Invalid action'
+    });
+    
     return ContentService
-      .createTextOutput(JSON.stringify({
-        status: 'error',
-        message: 'Invalid action'
-      }))
+      .createTextOutput(output)
       .setMimeType(ContentService.MimeType.JSON);
       
   } catch (error) {
+    Logger.log('Error: ' + error.toString());
+    const output = JSON.stringify({
+      status: 'error',
+      message: error.toString()
+    });
+    
     return ContentService
-      .createTextOutput(JSON.stringify({
-        status: 'error',
-        message: error.toString()
-      }))
+      .createTextOutput(output)
       .setMimeType(ContentService.MimeType.JSON);
   }
 }
 
-// 간단한 비밀번호 해싱 (보안을 위해)
 function hashPassword(password) {
   const hash = Utilities.computeDigest(
     Utilities.DigestAlgorithm.SHA_256,
