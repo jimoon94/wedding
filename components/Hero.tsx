@@ -31,7 +31,7 @@ export default function Hero() {
             transition={{ duration: 0.8, delay: 1.2 }}
           >
             <div className="w-12 h-px bg-secondary" />
-            <div className="text-4xl md:text-5xl font-bold text-black font-elegant">
+            <div className="text-4xl md:text-5xl font-bold text-black font-elegant text-center">
               Getting married
             </div>
             <div className="w-12 h-px bg-secondary" />

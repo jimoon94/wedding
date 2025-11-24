@@ -7,7 +7,6 @@ import { useRef, useState, useEffect } from 'react'
 interface Message {
   name: string
   message: string
-  password: string
   timestamp: string
   rowIndex: number
 }
@@ -21,20 +20,19 @@ export default function Guestbook() {
   const [message, setMessage] = useState('')
   const [password, setPassword] = useState('')
   const [isSubmitting, setIsSubmitting] = useState(false)
+  const [isLoading, setIsLoading] = useState(true)
 
-  // Google Apps Script Web App URL (나중에 실제 URL로 교체)
+  // Google Apps Script Web App URL
   const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbymMrMBTBJdi-Rtf_WAx6i6sIiVHmnyUVFlhR9bKT7bSmTOYQExnkpIJ52WQUV3hll9Kw/exec'
 
   // 메시지 불러오기
-  useEffect(() => {
-    fetchMessages()
-  }, [])
-
   const fetchMessages = async () => {
     try {
-      const response = await fetch(`${SCRIPT_URL}?action=get`, {
+      setIsLoading(true)
+      const response = await fetch(`${SCRIPT_URL}?action=get&timestamp=${Date.now()}`, {
         method: 'GET',
-        redirect: 'follow', // 리다이렉트 따라가기
+        redirect: 'follow',
+        cache: 'no-cache', // 캐시 방지
       })
       
       if (!response.ok) {
@@ -50,8 +48,15 @@ export default function Guestbook() {
       }
     } catch (error) {
       console.error('메시지 불러오기 실패:', error)
+    } finally {
+      setIsLoading(false)
     }
   }
+
+  // 컴포넌트 마운트 시 메시지 불러오기
+  useEffect(() => {
+    fetchMessages()
+  }, [])
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
@@ -91,6 +96,7 @@ export default function Guestbook() {
         setName('')
         setMessage('')
         setPassword('')
+        // 메시지 등록 후 목록 새로고침
         await fetchMessages()
       } else {
         alert(`메시지 등록에 실패했습니다: ${data.message || '알 수 없는 오류'}`)
@@ -114,7 +120,7 @@ export default function Guestbook() {
         redirect: 'follow',
         body: JSON.stringify({
           action: 'delete',
-          rowIndex: rowIndex,  // index 대신 rowIndex 사용
+          rowIndex: rowIndex,
           password: inputPassword,
         }),
       })
@@ -127,6 +133,7 @@ export default function Guestbook() {
       
       if (data.status === 'success') {
         alert('메시지가 삭제되었습니다.')
+        // 삭제 후 목록 새로고침
         await fetchMessages()
       } else {
         alert(data.message || '비밀번호가 일치하지 않습니다.')
@@ -211,39 +218,52 @@ export default function Guestbook() {
           transition={{ duration: 0.8, delay: 0.4 }}
           className="space-y-4"
         >
-          {messages.map((msg, index) => (
-            <div
-              key={index}
-              className="bg-white rounded-lg p-6 shadow-md"
-            >
-              <div className="flex justify-between items-start mb-3">
-                <div>
-                  <p className="font-bold text-gray-800">{msg.name}</p>
-                  <p className="text-xs text-gray-500 mt-1">
-                    {new Date(msg.timestamp).toLocaleDateString('ko-KR', {
-                      year: 'numeric',
-                      month: 'long',
-                      day: 'numeric',
-                      hour: '2-digit',
-                      minute: '2-digit',
-                    })}
-                  </p>
-                </div>
-                <button
-                  onClick={() => handleDelete(msg.rowIndex)}  // index 대신 msg.rowIndex 사용
-                  className="text-gray-400 hover:text-red-500 transition-colors"
-                  title="삭제"
-                >
-                  <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
-                  </svg>
-                </button>
+          {isLoading ? (
+            <div className="bg-white rounded-lg p-8 shadow-md text-center text-gray-500 font-serif">
+              <div className="animate-pulse">
+                메시지를 불러오는 중...
               </div>
-              <p className="text-gray-700 whitespace-pre-wrap font-serif leading-relaxed">
-                {msg.message}
-              </p>
             </div>
-          ))}
+          ) : messages.length === 0 ? (
+            <div className="bg-white rounded-lg p-8 shadow-md text-center text-gray-500 font-serif">
+              아직 등록된 메시지가 없습니다.<br />
+              첫 번째 축하 메시지를 남겨주세요!
+            </div>
+          ) : (
+            messages.map((msg, index) => (
+              <div
+                key={`${msg.rowIndex}-${index}`}
+                className="bg-white rounded-lg p-6 shadow-md"
+              >
+                <div className="flex justify-between items-start mb-3">
+                  <div>
+                    <p className="font-bold text-gray-800">{msg.name}</p>
+                    <p className="text-xs text-gray-500 mt-1">
+                      {new Date(msg.timestamp).toLocaleDateString('ko-KR', {
+                        year: 'numeric',
+                        month: 'long',
+                        day: 'numeric',
+                        hour: '2-digit',
+                        minute: '2-digit',
+                      })}
+                    </p>
+                  </div>
+                  <button
+                    onClick={() => handleDelete(msg.rowIndex)}
+                    className="text-gray-400 hover:text-red-500 transition-colors"
+                    title="삭제"
+                  >
+                    <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+                    </svg>
+                  </button>
+                </div>
+                <p className="text-gray-700 whitespace-pre-wrap font-serif leading-relaxed">
+                  {msg.message}
+                </p>
+              </div>
+            ))
+          )}
         </motion.div>
       </div>
     </section>

@@ -15,20 +15,20 @@ interface Account {
 const accounts: { groom: Account[]; bride: Account[] } = {
   groom: [
     {
-      name: '강은성',
+      name: '강 은성',
       relation: '신랑',
       bank: '신한은행',
       accountNumber: '110-123-456789',
       kakaopayLink: 'https://qr.kakaopay.com/example1',
     },
     {
-      name: '강○○',
+      name: '강 대홍',
       relation: '신랑 아버지',
       bank: '국민은행',
       accountNumber: '123-456-789012',
     },
     {
-      name: '문○○',
+      name: '김 경자',
       relation: '신랑 어머니',
       bank: '우리은행',
       accountNumber: '1002-123-456789',
@@ -36,20 +36,20 @@ const accounts: { groom: Account[]; bride: Account[] } = {
   ],
   bride: [
     {
-      name: '문지선',
+      name: '문 지선',
       relation: '신부',
       bank: '카카오뱅크',
       accountNumber: '3333-01-1234567',
       kakaopayLink: 'https://qr.kakaopay.com/example2',
     },
     {
-      name: '문○○',
+      name: '문 주철',
       relation: '신부 아버지',
       bank: '신한은행',
       accountNumber: '110-987-654321',
     },
     {
-      name: '김○○',
+      name: '박 종순',
       relation: '신부 어머니',
       bank: '하나은행',
       accountNumber: '123-456789-01234',
