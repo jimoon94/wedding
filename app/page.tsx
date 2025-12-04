@@ -8,14 +8,16 @@ import Location from '@/components/Location'
 import AccountInfo from '@/components/AccountInfo'
 import Guestbook from '@/components/Guestbook'
 import Footer from '@/components/Footer'
+import Family from '@/components/Family'
 
 export default function Home() {
   return (
     <main className="min-h-screen">
       <Hero />
       <Greeting />
-      <Gallery />
+      <Family />
       <WeddingInfo />
+      <Gallery />
       <Location />
       <AccountInfo />
       <Guestbook />

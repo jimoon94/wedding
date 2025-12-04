@@ -36,7 +36,7 @@ export default function Gallery() {
 
   return (
     <section ref={ref} className="py-20 px-6 bg-accent/30">
-      <div className="max-w-4xl mx-auto">
+      <div className="max-w-2xl mx-auto">
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           animate={isInView ? { opacity: 1, y: 0 } : {}}

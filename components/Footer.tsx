@@ -15,7 +15,6 @@ export default function Footer() {
           title: '문지선 ❤️ 강은성 결혼식에 초대합니다',
           url: window.location.href
         })
-        // 카카오톡으로 공유하면 layout.tsx의 openGraph 메타데이터가 자동으로 표시됩니다!
       } else {
         // 데스크톱에서는 링크만 복사
         await navigator.clipboard.writeText(window.location.href)
@@ -30,8 +29,13 @@ export default function Footer() {
     }
   }
 
+  // 맨 위로 스크롤
+  const scrollToTop = () => {
+    window.scrollTo({ top: 0, behavior: 'smooth' })
+  }
+
   return (
-    <footer className="py-12 px-6 bg-primary text-white text-center pb-24">
+    <footer className="py-12 px-6 bg-primary text-white text-center">
       <motion.div
         initial={{ opacity: 0 }}
         whileInView={{ opacity: 1 }}
@@ -56,15 +60,33 @@ export default function Footer() {
         </div>
       </motion.div>
       
-      {/* 공유하기 버튼 (하단 고정) */}
-      <div className="fixed bottom-0 left-0 right-0 w-full mx-auto p-4 bg-white/80 backdrop-blur-md border-t border-stone-100 z-50">
-        <button 
-          onClick={shareLink} 
-          className="w-full bg-black text-white py-3 rounded-lg font-serif-kr shadow-lg hover:bg-[#48423d] transition flex items-center justify-center gap-2"
+      {/* 플로팅 버튼들 (오른쪽 하단 고정) */}
+      <div className="fixed bottom-6 right-6 flex flex-col gap-3 z-50">
+        {/* 맨 위로 버튼 */}
+        <motion.button
+          onClick={scrollToTop}
+          className="w-12 h-12 bg-white text-[#5d5650] rounded-full shadow-lg hover:bg-gray-100 transition flex items-center justify-center"
+          whileHover={{ scale: 1.1 }}
+          whileTap={{ scale: 0.95 }}
+          aria-label="맨 위로"
         >
-          <span className="text-xl">💬</span>
-          공유하기
-        </button>
+          <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 10l7-7m0 0l7 7m-7-7v18" />
+          </svg>
+        </motion.button>
+
+        {/* 공유하기 버튼 */}
+        <motion.button
+          onClick={shareLink}
+          className="w-12 h-12 bg-[#5d5650] text-white rounded-full shadow-lg hover:bg-[#48423d] transition flex items-center justify-center"
+          whileHover={{ scale: 1.1 }}
+          whileTap={{ scale: 0.95 }}
+          aria-label="공유하기"
+        >
+          <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8.684 13.342C8.886 12.938 9 12.482 9 12c0-.482-.114-.938-.316-1.342m0 2.684a3 3 0 110-2.684m0 2.684l6.632 3.316m-6.632-6l6.632-3.316m0 0a3 3 0 105.367-2.684 3 3 0 00-5.367 2.684zm0 9.316a3 3 0 105.368 2.684 3 3 0 00-5.368-2.684z" />
+          </svg>
+        </motion.button>
       </div>
 
       {/* 토스트 메시지 (링크 복사 시) */}
