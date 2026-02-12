@@ -84,6 +84,9 @@ export default function Hero() {
     <div className="min-h-screen flex items-center justify-center">
       {/* 모바일 사이즈 컨테이너 */}
       <div className="w-full max-w-2xl mx-auto min-h-screen">
+          <div className="text-center text-2xl font-elegant tracking-widest my-4">
+            <h1>저희 결혼식에 초대드립니다.</h1>
+          </div>
         <section className="relative min-h-screen flex flex-col">
           {/* 메인 사진 영역 */}
           <div className="relative flex-1 min-h-[65vh]">

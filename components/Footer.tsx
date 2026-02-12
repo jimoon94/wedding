@@ -35,7 +35,7 @@ export default function Footer() {
   }
 
   return (
-    <footer className="py-12 px-6 bg-primary text-white text-center">
+    <footer className="py-12 px-6 bg-white text-black text-center">
       <motion.div
         initial={{ opacity: 0 }}
         whileInView={{ opacity: 1 }}
@@ -56,7 +56,7 @@ export default function Footer() {
         </p>
 
         <div className="mt-8 text-xs opacity-60">
-          <p>© 2026 Wedding Invitation</p>
+          <p>© 2026.08.01 Wedding Invitation</p>
         </div>
       </motion.div>
       

@@ -11,6 +11,7 @@ import Guestbook from '@/components/Guestbook'
 import Footer from '@/components/Footer'
 import Family from '@/components/Family'
 import HandwritingIntro from '@/components/HandwritingIntro'
+import FlowerInfo from '@/components/flower_info'
 
 export default function Home() {
   const [showMain, setShowMain] = useState(false)
@@ -26,6 +27,7 @@ export default function Home() {
           <WeddingInfo />
           <Gallery />
           <Location />
+          <FlowerInfo />
           <AccountInfo />
           <Guestbook />
           <Footer />

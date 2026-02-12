@@ -101,7 +101,7 @@ export default function Location() {
 
           {/* 교통 안내 */}
           <div className="bg-white rounded-lg p-6 shadow-md">
-            <h3 className="text-lg font-elegant text-primary mb-4 text-center">교통 안내</h3>
+            <h3 className="text-2xl font-elegant text-primary mb-4 text-center">교통 안내</h3>
             
             <div className="space-y-6 text-sm md:text-base">
               {/* 지하철 */}
