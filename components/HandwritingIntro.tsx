@@ -3,7 +3,7 @@
 import { motion } from 'framer-motion'
 import { useEffect, useState } from 'react'
 
-const lines = ["We're", "Getting", "Married"]
+const lines = ["We're", "Getting", "Married!"]
 
 export default function HandwritingIntro({ onComplete }: { onComplete: () => void }) {
   const [showText, setShowText] = useState(false)
@@ -11,7 +11,7 @@ export default function HandwritingIntro({ onComplete }: { onComplete: () => voi
   useEffect(() => {
     // 텍스트가 나타나는 애니메이션 시작
     setShowText(true)
-    
+
     // 애니메이션 완료 후 메인 화면으로 전환 (약 4초 후)
     const timer = setTimeout(() => {
       onComplete()
@@ -37,7 +37,13 @@ export default function HandwritingIntro({ onComplete }: { onComplete: () => voi
   let globalCharIndex = 0
 
   return (
-    <div className="fixed inset-0 z-50 bg-[#FEFDFB] flex items-center justify-center">
+    <motion.div
+      className="fixed inset-0 z-50 flex items-center justify-center"
+      style={{ backgroundColor: 'rgba(255,255,255,0.55)', backdropFilter: 'blur(2px)' }}
+      initial={{ opacity: 1 }}
+      exit={{ opacity: 0 }}
+      transition={{ duration: 0.8 }}
+    >
       <motion.div
         className="text-center"
         initial={{ opacity: 0 }}
@@ -45,7 +51,7 @@ export default function HandwritingIntro({ onComplete }: { onComplete: () => voi
         transition={{ duration: 0.5 }}
       >
         {showText && (
-          <div className="text-4xl md:text-5xl font-elegant flex flex-col items-center justify-center gap-2">
+          <div className="text-6xl md:text-5xl font-elegant flex flex-col items-center justify-center gap-2">
             {lines.map((line, lineIndex) => {
               const characters = line.split('')
               return (
@@ -58,21 +64,21 @@ export default function HandwritingIntro({ onComplete }: { onComplete: () => voi
                         key={charIndex}
                         className="inline-block"
                         style={{
-                          color: '#7a7a7a',
+                          color: 'black',
                           transformOrigin: 'center',
                         }}
-                        initial={{ 
-                          opacity: 0, 
+                        initial={{
+                          opacity: 0,
                           scale: 0.8,
                           ...style
                         }}
-                        animate={{ 
-                          opacity: 1, 
+                        animate={{
+                          opacity: 1,
                           scale: 1,
                           rotate: style.rotate,
                           y: style.y,
                         }}
-                        transition={{ 
+                        transition={{
                           duration: 0.4,
                           delay: 0.2 + currentIndex * 0.12,
                           ease: [0.25, 0.46, 0.45, 0.94]
@@ -88,7 +94,7 @@ export default function HandwritingIntro({ onComplete }: { onComplete: () => voi
           </div>
         )}
       </motion.div>
-    </div>
+    </motion.div>
   )
 }
 

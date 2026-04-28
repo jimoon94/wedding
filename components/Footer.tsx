@@ -1,32 +1,38 @@
 'use client'
 
 import { motion } from 'framer-motion'
-import { useState } from 'react'
 
 export default function Footer() {
-  const [showToast, setShowToast] = useState(false)
 
-  // 공유하기 함수 (Open Graph 메타데이터 활용)
-  const shareLink = async () => {
-    try {
-      // 모바일에서 Web Share API 지원 시
-      if (navigator.share) {
-        await navigator.share({
-          title: '문지선 ❤️ 강은성 결혼식에 초대합니다',
-          url: window.location.href
-        })
-      } else {
-        // 데스크톱에서는 링크만 복사
-        await navigator.clipboard.writeText(window.location.href)
-        setShowToast(true)
-        setTimeout(() => setShowToast(false), 3000)
-      }
-    } catch (err) {
-      // 공유 취소 시 에러 무시
-      if (err instanceof Error && err.name !== 'AbortError') {
-        console.error('공유 실패:', err)
-      }
+  const shareLink = () => {
+    const kakao = (window as any).Kakao
+    if (!kakao) return
+
+    if (!kakao.isInitialized()) {
+      kakao.init('649fe3bb5fd72be2b08619ebf2dffe96')
     }
+
+    kakao.Share.sendDefault({
+      objectType: 'feed',
+      content: {
+        title: '문지선 ❤️ 강은성 결혼식에 초대합니다',
+        description: '2026. 08. 01 SAT 오후 6:30 | 더 바실리움 웨딩홀',
+        imageUrl: 'https://wedding-theta-one.vercel.app/main_photo.jpg',
+        link: {
+          mobileWebUrl: 'https://wedding-theta-one.vercel.app',
+          webUrl: 'https://wedding-theta-one.vercel.app',
+        },
+      },
+      buttons: [
+        {
+          title: '모바일 청첩장 보기',
+          link: {
+            mobileWebUrl: 'https://wedding-theta-one.vercel.app',
+            webUrl: 'https://wedding-theta-one.vercel.app',
+          },
+        },
+      ],
+    })
   }
 
   // 맨 위로 스크롤
@@ -89,17 +95,6 @@ export default function Footer() {
         </motion.button>
       </div>
 
-      {/* 토스트 메시지 (링크 복사 시) */}
-      {showToast && (
-        <motion.div
-          initial={{ opacity: 0, y: 50 }}
-          animate={{ opacity: 1, y: 0 }}
-          exit={{ opacity: 0, y: 50 }}
-          className="fixed bottom-24 left-1/2 -translate-x-1/2 bg-[#5d5650] text-white px-6 py-3 rounded-lg shadow-lg z-50"
-        >
-          링크가 복사되었습니다! 🎉
-        </motion.div>
-      )}
     </footer>
   )
 }

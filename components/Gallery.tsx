@@ -18,7 +18,7 @@ const photos = [
   { id: 3, src: '/photo3.jpg', alt: '웨딩 사진 3' },
   { id: 4, src: '/photo4.jpg', alt: '웨딩 사진 4' },
   { id: 5, src: '/photo5.jpg', alt: '웨딩 사진 5' },
-  { id: 6, src: '/photo6.jpg', alt: '웨딩 사진 6' },
+  { id: 6, src: '/photo6.jpeg', alt: '웨딩 사진 6' },
   { id: 7, src: '/photo7.jpg', alt: '웨딩 사진 7' },
   { id: 8, src: '/photo8.jpg', alt: '웨딩 사진 8' },
 ]

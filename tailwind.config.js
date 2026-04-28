@@ -14,7 +14,8 @@ module.exports = {
       },
       fontFamily: {
         serif: ['Asta Sans', 'serif'],
-        elegant: ['var(--font-diphylleia)', 'serif'],
+        elegant: ['LXGWWenKaiKR', 'serif'],
+        script: ['var(--font-dancing-script)', 'cursive'],
       },
     },
   },

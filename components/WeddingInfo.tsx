@@ -48,19 +48,19 @@ export default function WeddingInfo() {
   const generateCalendar = () => {
     const firstDay = new Date(weddingYear, weddingMonth - 1, 1).getDay()
     const daysInMonth = new Date(weddingYear, weddingMonth, 0).getDate()
-    
+
     const days = []
-    
+
     // 빈 칸 채우기 (일요일 시작)
     for (let i = 0; i < firstDay; i++) {
       days.push(null)
     }
-    
+
     // 날짜 채우기
     for (let i = 1; i <= daysInMonth; i++) {
       days.push(i)
     }
-    
+
     return days
   }
 
@@ -88,7 +88,7 @@ export default function WeddingInfo() {
               더 바실리움 웨딩홀
             </p>
             <p className="text-sm md:text-base text-primary/70">
-              경기 성남시 분당구 양현로 322 코리아디자인센터 8층
+              경기 성남시 분당구 양현로 322, 8층 더바실리움
             </p>
           </div>
         </motion.div>
@@ -102,7 +102,7 @@ export default function WeddingInfo() {
         >
           {/* 달력 헤더 */}
           <div className="text-center mb-4">
-            <p className="text-lg font-elegant text-[#8b7355]">
+            <p className="text-lg font-elegant text-black">
               {weddingYear}년 {weddingMonth}월
             </p>
           </div>
@@ -112,9 +112,8 @@ export default function WeddingInfo() {
             {weekDays.map((day, index) => (
               <div
                 key={day}
-                className={`text-center text-xs font-medium py-2 ${
-                  index === 0 ? 'text-red-400' : index === 6 ? 'text-blue-400' : 'text-gray-500'
-                }`}
+                className={`text-center text-xs font-medium py-2 ${index === 0 ? 'text-red-400' : index === 6 ? 'text-blue-400' : 'text-gray-500'
+                  }`}
               >
                 {day}
               </div>
@@ -126,22 +125,21 @@ export default function WeddingInfo() {
             {calendarDays.map((day, index) => (
               <div
                 key={index}
-                className={`text-center py-2 text-sm ${
-                  day === null
-                    ? ''
-                    : day === weddingDay
-                    ? 'bg-[#8b7355] text-white rounded-full font-bold relative'
+                className={`text-center py-2 text-sm ${day === null
+                  ? ''
+                  : day === weddingDay
+                    ? 'bg-black text-white rounded-full font-bold relative'
                     : index % 7 === 0
-                    ? 'text-red-400'
-                    : index % 7 === 6
-                    ? 'text-blue-400'
-                    : 'text-gray-700'
-                }`}
+                      ? 'text-red-400'
+                      : index % 7 === 6
+                        ? 'text-blue-400'
+                        : 'text-gray-700'
+                  }`}
               >
                 {day}
                 {day === weddingDay && (
-                  <span className="absolute -bottom-4 left-1/2 -translate-x-1/2 text-[10px] text-[#8b7355] whitespace-nowrap">
-                    우리의 결혼식
+                  <span className="absolute -bottom-4 left-1/2 -translate-x-1/2 text-[10px] text-black whitespace-nowrap">
+                    Wedding day!
                   </span>
                 )}
               </div>

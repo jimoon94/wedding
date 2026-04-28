@@ -1,6 +1,7 @@
 'use client'
 
-import { useState, useEffect } from 'react'
+import { useState } from 'react'
+import { AnimatePresence } from 'framer-motion'
 import Hero from '@/components/Hero'
 import Greeting from '@/components/Greeting'
 import Gallery from '@/components/Gallery'
@@ -12,27 +13,29 @@ import Footer from '@/components/Footer'
 import Family from '@/components/Family'
 import HandwritingIntro from '@/components/HandwritingIntro'
 import FlowerInfo from '@/components/flower_info'
+import VideoSection from '@/components/VideoSection'
 
 export default function Home() {
-  const [showMain, setShowMain] = useState(false)
+  const [showIntro, setShowIntro] = useState(true)
 
   return (
     <>
-      {!showMain && <HandwritingIntro onComplete={() => setShowMain(true)} />}
-      {showMain && (
-        <main className="min-h-screen">
-          <Hero />
-          <Greeting />
-          <Family />
-          <WeddingInfo />
-          <Gallery />
-          <Location />
-          <FlowerInfo />
-          <AccountInfo />
-          <Guestbook />
-          <Footer />
-        </main>
-      )}
+      <AnimatePresence>
+        {showIntro && <HandwritingIntro onComplete={() => setShowIntro(false)} />}
+      </AnimatePresence>
+      <main className="min-h-screen">
+        <Hero />
+        <Greeting />
+        <Family />
+        <VideoSection />
+        <WeddingInfo />
+        <Gallery />
+        <Location />
+        <FlowerInfo />
+        <AccountInfo />
+        <Guestbook />
+        <Footer />
+      </main>
     </>
   )
 }

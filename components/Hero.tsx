@@ -3,77 +3,95 @@
 import { motion } from 'framer-motion'
 import { useEffect, useState } from 'react'
 
-// 꽃잎 컴포넌트
-const Flower = ({ delay, startX, duration }: { delay: number; startX: number; duration: number }) => {
+const Bubble = ({ id, delay, startX, size, duration, drift }: {
+  id: number
+  delay: number
+  startX: number
+  size: number
+  duration: number
+  drift: number
+}) => {
+  const gId = `bg-${id}`
+  const sId = `sh-${id}`
+  const rId = `ri-${id}`
+
   return (
     <motion.div
-      className="absolute pointer-events-none z-20"
-      style={{ left: `${startX}%` }}
-      initial={{ 
-        y: -30, 
-        rotate: 0,
-        opacity: 0 
+      className="absolute pointer-events-none"
+      style={{ left: `${startX}%`, bottom: '-80px' }}
+      animate={{
+        y: ['0vh', '-120vh'],
+        x: [0, drift, drift * -0.6, drift * 0.4, 0],
+        opacity: [0, 0.85, 0.85, 0.7, 0],
       }}
-      animate={{ 
-        x: [0, 30, -20, 10, 0],
-        y: ['0vh', '100vh'],
-        rotate: [0, 45, -30, 60, 0],
-        opacity: [0, 1, 1, 1, 0]
-      }}
-      transition={{ 
-        duration: duration,
-        delay: delay,
+      transition={{
+        duration,
+        delay,
         repeat: Infinity,
-        ease: "linear"
+        ease: 'linear',
       }}
     >
-      {/* 데이지 꽃 SVG */}
-      <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
-        <g transform="translate(12, 12)">
-          {/* 꽃잎들 */}
-          {[0, 45, 90, 135, 180, 225, 270, 315].map((angle, i) => (
-            <ellipse
-              key={i}
-              cx="0"
-              cy="-6"
-              rx="2.5"
-              ry="5"
-              fill="white"
-              transform={`rotate(${angle})`}
-              opacity="0.9"
-            />
-          ))}
-          {/* 중심 */}
-          <circle cx="0" cy="0" r="3" fill="#FFD700" />
-        </g>
+      <svg width={size} height={size} viewBox="0 0 100 100" fill="none">
+        <defs>
+          <radialGradient id={gId} cx="50%" cy="40%" r="55%">
+            <stop offset="0%" stopColor="white" stopOpacity="0.6" />
+            <stop offset="50%" stopColor="#e8f4ff" stopOpacity="0.15" />
+            <stop offset="100%" stopColor="#c8e8ff" stopOpacity="0.05" />
+          </radialGradient>
+          <radialGradient id={sId} cx="35%" cy="30%" r="30%">
+            <stop offset="0%" stopColor="white" stopOpacity="1" />
+            <stop offset="100%" stopColor="white" stopOpacity="0" />
+          </radialGradient>
+          <linearGradient id={rId} x1="0%" y1="0%" x2="100%" y2="100%">
+            <stop offset="0%" stopColor="#b8d8ff" stopOpacity="0.9" />
+            <stop offset="25%" stopColor="#d4b8ff" stopOpacity="0.8" />
+            <stop offset="50%" stopColor="#ffb8d4" stopOpacity="0.8" />
+            <stop offset="75%" stopColor="#b8f0d8" stopOpacity="0.7" />
+            <stop offset="100%" stopColor="#b8d8ff" stopOpacity="0.9" />
+          </linearGradient>
+        </defs>
+
+        {/* 내부 밝은 중심부 */}
+        <circle cx="50" cy="50" r="47" fill={`url(#${gId})`} />
+
+        {/* 무지개 테두리 */}
+        <circle cx="50" cy="50" r="47" stroke={`url(#${rId})`} strokeWidth="1" fill="none" />
+        <circle cx="50" cy="50" r="45.5" stroke="rgba(255,255,255,0.2)" strokeWidth="0.5" fill="none" />
+
+        {/* 메인 하이라이트 */}
+        <ellipse cx="34" cy="28" rx="14" ry="10" fill={`url(#${sId})`} />
+
+        {/* 하단 보조 반사 */}
+        <ellipse cx="64" cy="70" rx="7" ry="4" fill="white" opacity="0.3" transform="rotate(-15 64 70)" />
+
+        {/* 작은 반짝이 */}
+        <circle cx="70" cy="26" r="2.5" fill="white" opacity="0.6" />
       </svg>
     </motion.div>
   )
 }
 
-// 꽃잎들 생성
-const FallingFlowers = () => {
-  const [flowers, setFlowers] = useState<Array<{ id: number; delay: number; startX: number; duration: number }>>([])
+const SoapBubbles = () => {
+  const [bubbles, setBubbles] = useState<Array<{
+    id: number; delay: number; startX: number; size: number; duration: number; drift: number
+  }>>([])
 
   useEffect(() => {
-    const generated = Array.from({ length: 15 }, (_, i) => ({
+    const generated = Array.from({ length: 22 }, (_, i) => ({
       id: i,
-      delay: Math.random() * 10,
-      startX: 5 + Math.random() * 90, // 5% ~ 95% 범위
-      duration: 10 + Math.random() * 8
+      delay: (i / 22) * 14,
+      startX: 5 + Math.random() * 88,
+      size: 20 + Math.random() * 30,
+      duration: 10 + Math.random() * 8,
+      drift: (Math.random() - 0.5) * 40,
     }))
-    setFlowers(generated)
+    setBubbles(generated)
   }, [])
 
   return (
-    <div className="absolute inset-0 overflow-hidden pointer-events-none">
-      {flowers.map((flower) => (
-        <Flower
-          key={flower.id}
-          delay={flower.delay}
-          startX={flower.startX}
-          duration={flower.duration}
-        />
+    <div className="absolute inset-0 overflow-hidden pointer-events-none z-10">
+      {bubbles.map((b) => (
+        <Bubble key={b.id} {...b} />
       ))}
     </div>
   )
@@ -81,130 +99,58 @@ const FallingFlowers = () => {
 
 export default function Hero() {
   return (
-    <div className="min-h-screen flex items-center justify-center">
-      {/* 모바일 사이즈 컨테이너 */}
-      <div className="w-full max-w-2xl mx-auto min-h-screen">
-          <div className="text-center text-2xl font-elegant tracking-widest my-4">
-            <h1>저희 결혼식에 초대드립니다.</h1>
-          </div>
-        <section className="relative min-h-screen flex flex-col">
-          {/* 메인 사진 영역 */}
-          <div className="relative flex-1 min-h-[65vh]">
-            {/* 꽃 떨어지는 효과 */}
-            <FallingFlowers />
-            
-            {/* 배경 사진 */}
-            <motion.div
-              className="absolute inset-0"
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              transition={{ duration: 1.2 }}
-            >
-              <div className="relative w-full h-full">
-                {/* 사진 프레임 */}
-                <div className="absolute inset-4">
-                  <div className="relative w-full h-full">
-                    <img
-                      src="/main_photo.jpg"
-                      alt="문지선 & 강은성 웨딩 사진"
-                      className="w-full h-full object-cover"
-                    />
-                    {/* 흰색 테두리 */}
-                    <div className="absolute inset-0 border-4 border-white/60 pointer-events-none" />
-                  </div>
-                </div>
-              </div>
-            </motion.div>
-          </div>
+    <div className="w-full max-w-2xl mx-auto bg-white">
+      {/* 메인 사진 - 3:4 세로 비율 */}
+      <div className="relative w-full aspect-[3/4] overflow-hidden">
+        <SoapBubbles />
 
-          {/* 하단 정보 영역 */}
-          <motion.div 
-            className="relative py-8 px-6"
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 0.5 }}
-          >
-            {/* 신랑신부 이름과 날짜 */}
-            <div className="flex items-center justify-center gap-8 mb-4">
-              {/* 신랑 이름 */}
-              <motion.div
-                initial={{ opacity: 0, x: -20 }}
-                animate={{ opacity: 1, x: 0 }}
-                transition={{ duration: 0.6, delay: 0.8 }}
-              >
-                <p className="text-2xl font-elegant tracking-widest">
-                  강은성
-                </p>
-              </motion.div>
+        <motion.div
+          className="absolute inset-0"
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ duration: 1.2 }}
+        >
+          <img
+            src="/main_photo.jpg"
+            alt="문지선 & 강은성 웨딩 사진"
+            className="w-full h-full object-cover"
+          />
+          {/* 하단 흰색 그라데이션 */}
+          <div className="absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-white" />
+        </motion.div>
 
-              {/* 날짜 (세로) */}
-              <motion.div
-                className="flex flex-col items-center"
-                initial={{ opacity: 0, scale: 0.8 }}
-                animate={{ opacity: 1, scale: 1 }}
-                transition={{ duration: 0.6, delay: 1 }}
-              >
-                <span className="text-2xl font-light">8</span>
-                <div className="w-6 h-px bg-black/20 my-1" />
-                <span className="text-2xl font-light">1</span>
-              </motion.div>
-
-              {/* 신부 이름 */}
-              <motion.div
-                initial={{ opacity: 0, x: 20 }}
-                animate={{ opacity: 1, x: 0 }}
-                transition={{ duration: 0.6, delay: 0.8 }}
-              >
-                <p className="text-2xl font-elegant tracking-widest">
-                  문지선
-                </p>
-              </motion.div>
-            </div>
-
-            {/* 날짜 및 장소 */}
-            <motion.div
-              className="text-center space-y-1"
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              transition={{ duration: 0.6, delay: 1.2 }}
-            >
-              <p className="text-sm tracking-[0.2em] text-gray-500">
-                2026. 08. 01 SAT. 6:30 PM
-              </p>
-              <p className="text-sm text-gray-500">
-                더 바실리움 웨딩홀
-              </p>
-            </motion.div>
-
-            {/* 스크롤 다운 아이콘 */}
-            <motion.div 
-              className="mt-6"
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              transition={{ duration: 0.5, delay: 1.5 }}
-            >
-              <motion.div
-                animate={{ y: [0, 8, 0] }}
-                transition={{ duration: 1.5, repeat: Infinity, ease: "easeInOut" }}
-              >
-                <svg 
-                  className="w-5 h-5 mx-auto text-white/50" 
-                  fill="none" 
-                  stroke="currentColor" 
-                  viewBox="0 0 24 24"
-                >
-                  <path 
-                    strokeLinecap="round" 
-                    strokeLinejoin="round" 
-                    strokeWidth={1.5} 
-                    d="M19 14l-7 7m0 0l-7-7m7 7V3" 
-                  />
-                </svg>
-              </motion.div>
-            </motion.div>
-          </motion.div>
-        </section>
       </div>
+
+      {/* 하단 정보 */}
+      <motion.div
+        className="py-10 text-center"
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.8, delay: 0.5 }}
+      >
+        <p className="text-lg tracking-[0.1em] mb-4 font-elegant text-gray-600">저희 결혼해요 🤍</p>
+
+        <div className="flex items-center justify-center gap-4 mb-4">
+          <span className="text-3xl font-elegant tracking-widest">강은성</span>
+          <span className="text-gray-300 text-xl">&</span>
+          <span className="text-3xl font-elegant tracking-widest">문지선</span>
+        </div>
+
+        <div className="space-y-1">
+          <p className="text-md tracking-[0.2em] text-gray-500 font-light">2026. 08. 01 SAT. 6:30 PM</p>
+          <p className="text-md text-gray-500 font-light">더 바실리움 웨딩홀</p>
+        </div>
+
+        <motion.div
+          className="mt-8"
+          animate={{ y: [0, 8, 0] }}
+          transition={{ duration: 1.5, repeat: Infinity, ease: "easeInOut" }}
+        >
+          <svg className="w-5 h-5 mx-auto text-gray-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M19 14l-7 7m0 0l-7-7m7 7V3" />
+          </svg>
+        </motion.div>
+      </motion.div>
     </div>
   )
 }

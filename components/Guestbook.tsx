@@ -15,7 +15,7 @@ interface Message {
 export default function Guestbook() {
   const ref = useRef(null)
   const isInView = useInView(ref, { once: true, margin: "-100px" })
-  
+
   const [messages, setMessages] = useState<Message[]>([])
   const [name, setName] = useState('')
   const [message, setMessage] = useState('')
@@ -36,13 +36,13 @@ export default function Guestbook() {
         method: 'GET',
         redirect: 'follow', // 리다이렉트 따라가기
       })
-      
+
       if (!response.ok) {
         throw new Error(`HTTP error! status: ${response.status}`)
       }
-      
+
       const data = await response.json()
-      
+
       if (data.status === 'success') {
         setMessages(data.messages || [])
       } else {
@@ -55,19 +55,19 @@ export default function Guestbook() {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
-    
+
     if (!name.trim() || !message.trim() || !password.trim()) {
       alert('모든 항목을 입력해주세요.')
       return
     }
-  
+
     if (password.length < 4) {
       alert('비밀번호는 4자 이상 입력해주세요.')
       return
     }
-  
+
     setIsSubmitting(true)
-  
+
     try {
       const response = await fetch(SCRIPT_URL, {
         method: 'POST',
@@ -79,13 +79,13 @@ export default function Guestbook() {
           password: password,
         }),
       })
-  
+
       if (!response.ok) {
         throw new Error(`HTTP error! status: ${response.status}`)
       }
-  
+
       const data = await response.json()
-      
+
       if (data.status === 'success') {
         alert('축하 메시지가 등록되었습니다!')
         setName('')
@@ -105,9 +105,9 @@ export default function Guestbook() {
 
   const handleDelete = async (rowIndex: number) => {
     const inputPassword = prompt('삭제하시려면 비밀번호를 입력해주세요:')
-    
+
     if (!inputPassword) return
-  
+
     try {
       const response = await fetch(SCRIPT_URL, {
         method: 'POST',
@@ -118,13 +118,13 @@ export default function Guestbook() {
           password: inputPassword,
         }),
       })
-  
+
       if (!response.ok) {
         throw new Error(`HTTP error! status: ${response.status}`)
       }
-  
+
       const data = await response.json()
-      
+
       if (data.status === 'success') {
         alert('메시지가 삭제되었습니다.')
         await fetchMessages()
@@ -138,8 +138,18 @@ export default function Guestbook() {
   }
 
   return (
-    <section ref={ref} className="py-20 px-6 bg-accent/30">
-      <div className="max-w-2xl mx-auto">
+    <section ref={ref} className="bg-accent/30">
+      {/* 상단 사진 */}
+      <div className="relative h-[45vh] overflow-hidden max-w-2xl mx-auto">
+        <img
+          src="/last_img.JPG"
+          alt="웨딩 사진"
+          className="w-full h-full object-cover"
+        />
+        <div className="absolute inset-0 bg-gradient-to-t from-[#F9F8F7] via-[#F9F8F7]/60 to-transparent" />
+      </div>
+
+      <div className="max-w-2xl mx-auto px-6 pb-20">
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           animate={isInView ? { opacity: 1, y: 0 } : {}}
@@ -151,7 +161,6 @@ export default function Guestbook() {
           </h2>
           <div className="w-12 h-px bg-secondary mx-auto mb-6" />
           <p className="text-sm text-gray-600 font-serif">
-            참석이 어려우신 분들도<br />
             따뜻한 축하의 말씀을 남겨주세요.
           </p>
         </motion.div>
@@ -249,3 +258,4 @@ export default function Guestbook() {
     </section>
   )
 }
+

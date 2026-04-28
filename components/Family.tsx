@@ -37,12 +37,12 @@ export default function Family() {
         {/* 상단 사진 영역 */}
         <div className="relative h-[50vh] overflow-hidden max-w-2xl mx-auto">
           <img
-            src="/photo6.jpg"
+            src="/photo6.jpeg"
             alt="웨딩 사진"
             className="w-full h-full object-cover"
           />
           {/* 하단 그라데이션 */}
-          <div className="absolute bottom-0 left-0 right-0 h-32 bg-gradient-to-t from-[#f9f7f4] to-transparent" />
+          <div className="absolute bottom-0 left-0 right-0 h-56 bg-gradient-to-t from-[#FEFDFB] via-[#FEFDFB]/70 to-transparent" />
         </div>
 
         {/* 가족 정보 영역 */}
@@ -55,7 +55,7 @@ export default function Family() {
           >
             {/* 신랑측 */}
             <div className="text-center">
-              <p className="text-base md:text-lg text-gray-700 font-serif">
+              <p className="text-lg text-gray-700 font-serif">
                 <span className="text-gray-800">{familyInfo.groom.parents.father}</span>
                 <span className="text-gray-400 mx-1">·</span>
                 <span className="text-gray-800">{familyInfo.groom.parents.mother}</span>
@@ -66,7 +66,7 @@ export default function Family() {
 
             {/* 신부측 */}
             <div className="text-center">
-              <p className="text-base md:text-lg text-gray-700 font-serif">
+              <p className="text-lg text-gray-700 font-serif">
                 <span className="text-gray-800">{familyInfo.bride.parents.father}</span>
                 <span className="text-gray-400 mx-1">·</span>
                 <span className="text-gray-800">{familyInfo.bride.parents.mother}</span>
@@ -126,14 +126,12 @@ export default function Family() {
                   {contacts.map((contact, index) => (
                     <div
                       key={index}
-                      className={`flex items-center justify-between py-2 ${
-                        index === 3 ? 'border-t border-gray-200 pt-4 mt-4' : ''
-                      }`}
+                      className={`flex items-center justify-between py-2 ${index === 3 ? 'border-t border-gray-200 pt-4 mt-4' : ''
+                        }`}
                     >
                       <div className="flex items-center gap-4">
-                        <span className={`text-sm w-20 ${
-                          contact.side.includes('신랑') ? 'text-[#5c8a9a]' : 'text-[#c4a68a]'
-                        }`}>
+                        <span className={`text-sm w-20 ${contact.side.includes('신랑') ? 'text-[#5c8a9a]' : 'text-[#c4a68a]'
+                          }`}>
                           {contact.side}
                         </span>
                         <span className="text-gray-800 font-serif">
