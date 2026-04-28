@@ -80,7 +80,7 @@ export default function AccountInfo() {
           <p className="text-xs text-gray-500">{account.relation}</p>
         </div>
       </div>
-      
+
       <div className="space-y-2 mb-3">
         <p className="text-sm text-gray-700">{account.bank}</p>
         <p className="text-sm font-mono text-gray-800">{account.accountNumber}</p>
@@ -118,7 +118,7 @@ export default function AccountInfo() {
             마음 전하실 곳
           </h2>
           <div className="w-12 h-px bg-secondary mx-auto mb-6" />
-          <p className="text-sm text-gray-600 font-serif">
+          <p className="text-md text-gray-600 font-serif">
             참석이 어려우신 분들을 위해<br />
             계좌번호를 기재하였습니다.
           </p>
@@ -138,9 +138,8 @@ export default function AccountInfo() {
             >
               <span className="font-elegant text-lg text-primary">신랑측 계좌번호</span>
               <svg
-                className={`w-5 h-5 text-primary transition-transform ${
-                  openSection === 'groom' ? 'rotate-180' : ''
-                }`}
+                className={`w-5 h-5 text-primary transition-transform ${openSection === 'groom' ? 'rotate-180' : ''
+                  }`}
                 fill="none"
                 stroke="currentColor"
                 viewBox="0 0 24 24"
@@ -176,9 +175,8 @@ export default function AccountInfo() {
             >
               <span className="font-elegant text-lg text-primary">신부측 계좌번호</span>
               <svg
-                className={`w-5 h-5 text-primary transition-transform ${
-                  openSection === 'bride' ? 'rotate-180' : ''
-                }`}
+                className={`w-5 h-5 text-primary transition-transform ${openSection === 'bride' ? 'rotate-180' : ''
+                  }`}
                 fill="none"
                 stroke="currentColor"
                 viewBox="0 0 24 24"

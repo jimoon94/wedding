@@ -112,7 +112,7 @@ export default function Hero() {
         >
           <img
             src="/main_photo.jpg"
-            alt="문지선 & 강은성 웨딩 사진"
+            alt="메인 웨딩 사진"
             className="w-full h-full object-cover"
           />
           {/* 하단 흰색 그라데이션 */}

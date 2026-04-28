@@ -8,7 +8,7 @@ import { useRef } from 'react'
 export default function Location() {
   const ref = useRef(null)
   const isInView = useInView(ref, { once: true, margin: "-100px" })
-  
+
   // 네이버 지도 iframe URL
   // 실제 URL을 얻는 방법:
   // 1. 네이버 지도(https://map.naver.com)에서 "더 바실리움 웨딩홀" 검색
@@ -19,7 +19,7 @@ export default function Location() {
   const mapIframeUrl = 'https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d792.2530122732438!2d127.12260186965933!3d37.41319009825492!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x357ca7dfb5239483%3A0x68640942ad08c245!2zKOyjvCnrsJTsi6Trpqzsm4A!5e0!3m2!1sko!2skr!4v1763447190690!5m2!1sko!2skr'
 
   const handleCopyAddress = () => {
-    const address = '경기 성남시 분당구 양현로 322 코리아디자인센터'
+    const address = '경기 성남시 분당구 양현로 322, 8층 더바실리움'
     navigator.clipboard.writeText(address).then(() => {
       alert('주소가 복사되었습니다!')
     })
@@ -73,7 +73,7 @@ export default function Location() {
             <div className="space-y-4">
               <div>
                 <h3 className="text-lg font-elegant text-primary mb-2">더 바실리움 웨딩홀</h3>
-                <p className="text-gray-700 font-serif">경기 성남시 분당구 양현로 322 코리아디자인센터 8층</p>
+                <p className="text-gray-700 font-serif">경기 성남시 분당구 양현로 322, 8층 더바실리움</p>
               </div>
 
               <div className="flex gap-2">
@@ -100,10 +100,10 @@ export default function Location() {
           </div>
 
           {/* 교통 안내 */}
-          <div className="bg-white rounded-lg p-6 shadow-md">
-            <h3 className="text-2xl font-elegant text-primary mb-4 text-center">교통 안내</h3>
-            
-            <div className="space-y-6 text-sm md:text-base">
+          <div className='pt-10'>
+            <h3 className="text-2xl font-elegant text-primary mb-8 text-center">교통 안내</h3>
+
+            <div className="space-y-6 text-lg">
               {/* 지하철 */}
               <div>
                 <div className="flex items-center gap-2 mb-2">
@@ -140,7 +140,7 @@ export default function Location() {
                 </div>
                 <p className="text-gray-700 ml-10 font-serif leading-relaxed">
                   야탑역 ④번 출구 택시 승강장 앞 (15분 간격)<br />
-                  (셔틀 차종: 스타리아) 
+                  (셔틀 차종: 스타리아)
                 </p>
               </div>
 

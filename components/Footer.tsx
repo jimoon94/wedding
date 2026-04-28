@@ -15,7 +15,7 @@ export default function Footer() {
     kakao.Share.sendDefault({
       objectType: 'feed',
       content: {
-        title: '문지선 ❤️ 강은성 결혼식에 초대합니다',
+        title: '강은성🤍문지선 결혼식에 초대합니다',
         description: '2026. 08. 01 SAT 오후 6:30 | 더 바실리움 웨딩홀',
         imageUrl: 'https://wedding-theta-one.vercel.app/main_photo.jpg',
         link: {
@@ -50,7 +50,7 @@ export default function Footer() {
         className="max-w-2xl mx-auto"
       >
         <div className="mb-6">
-          <p className="font-elegant text-lg mb-2">문지선 ❤️ 강은성</p>
+          <p className="font-elegant text-lg mb-2">강은성 🤍 문지선</p>
           <p className="text-sm opacity-80 font-serif">2026년 8월 1일</p>
         </div>
 
@@ -65,7 +65,7 @@ export default function Footer() {
           <p>© 2026.08.01 Wedding Invitation</p>
         </div>
       </motion.div>
-      
+
       {/* 플로팅 버튼들 (오른쪽 하단 고정) */}
       <div className="fixed bottom-6 right-6 flex flex-col gap-3 z-50">
         {/* 맨 위로 버튼 */}

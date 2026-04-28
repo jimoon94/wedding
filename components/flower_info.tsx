@@ -21,11 +21,11 @@ export default function NoFlowerNotice() {
           <div className="flex items-center justify-center gap-3 mb-8">
             <div className="h-px w-12 bg-gray-300" />
             <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
-              <circle cx="8" cy="8" r="3" fill="#d4b896"/>
-              <circle cx="8" cy="2" r="1.5" fill="#d4b896" opacity="0.5"/>
-              <circle cx="8" cy="14" r="1.5" fill="#d4b896" opacity="0.5"/>
-              <circle cx="2" cy="8" r="1.5" fill="#d4b896" opacity="0.5"/>
-              <circle cx="14" cy="8" r="1.5" fill="#d4b896" opacity="0.5"/>
+              <circle cx="8" cy="8" r="3" fill="#d4b896" />
+              <circle cx="8" cy="2" r="1.5" fill="#d4b896" opacity="0.5" />
+              <circle cx="8" cy="14" r="1.5" fill="#d4b896" opacity="0.5" />
+              <circle cx="2" cy="8" r="1.5" fill="#d4b896" opacity="0.5" />
+              <circle cx="14" cy="8" r="1.5" fill="#d4b896" opacity="0.5" />
             </svg>
             <div className="h-px w-12 bg-gray-300" />
           </div>
@@ -34,7 +34,7 @@ export default function NoFlowerNotice() {
             화환은 정중히 사양합니다
           </h2>
 
-          <div className="space-y-3 text-gray-500 font-serif leading-loose text-sm">
+          <div className="space-y-3 text-gray-500 font-serif leading-loose text-md">
             <p>
               소중한 마음은 충분히 감사히 받겠습니다.
             </p>
