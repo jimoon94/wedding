@@ -1,6 +1,7 @@
 'use client'
 
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
+import { useRouter } from 'next/navigation'
 import { AnimatePresence } from 'framer-motion'
 import Hero from '@/components/Hero'
 import Greeting from '@/components/Greeting'
@@ -17,6 +18,14 @@ import VideoSection from '@/components/VideoSection'
 
 export default function Home() {
   const [showIntro, setShowIntro] = useState(true)
+  const router = useRouter()
+
+  useEffect(() => {
+    const today = new Date()
+    if (today.getFullYear() === 2026 && today.getMonth() === 7 && today.getDate() === 1) {
+      router.replace('/day')
+    }
+  }, [router])
 
   return (
     <>

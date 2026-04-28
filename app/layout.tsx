@@ -19,13 +19,17 @@ const dancingScript = Dancing_Script({
 })
 
 export const metadata: Metadata = {
-  metadataBase: new URL('https://wedding-theta-one.vercel.app'),
+  metadataBase: new URL('https://wedding-es-js.vercel.app'),
   title: '강은성🤍문지선 결혼식에 초대합니다',
   description: '2026년 8월 1일 오후 6시 30분 | 더 바실리움 웨딩홀',
+  icons: {
+    icon: '/icon/weding-app-icon.ico',
+    apple: '/icon/weding-app-icon.png',
+  },
   openGraph: {
     title: '강은성🤍문지선 결혼식에 초대합니다',
     description: '2026년 8월 1일 오후 6시 30분 | 더 바실리움 웨딩홀',
-    images: ['https://wedding-theta-one.vercel.app/main_photo.jpg'],
+    images: ['https://wedding-es-js.vercel.app/main_photo.jpg'],
   },
 }
 

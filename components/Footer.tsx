@@ -17,18 +17,18 @@ export default function Footer() {
       content: {
         title: '강은성🤍문지선 결혼식에 초대합니다',
         description: '2026. 08. 01 SAT 오후 6:30 | 더 바실리움 웨딩홀',
-        imageUrl: 'https://wedding-theta-one.vercel.app/main_photo.jpg',
+        imageUrl: 'https://wedding-es-js.vercel.app/main_photo.jpg',
         link: {
-          mobileWebUrl: 'https://wedding-theta-one.vercel.app',
-          webUrl: 'https://wedding-theta-one.vercel.app',
+          mobileWebUrl: 'https://wedding-es-js.vercel.app',
+          webUrl: 'https://wedding-es-js.vercel.app',
         },
       },
       buttons: [
         {
           title: '모바일 청첩장 보기',
           link: {
-            mobileWebUrl: 'https://wedding-theta-one.vercel.app',
-            webUrl: 'https://wedding-theta-one.vercel.app',
+            mobileWebUrl: 'https://wedding-es-js.vercel.app',
+            webUrl: 'https://wedding-es-js.vercel.app',
           },
         },
       ],
