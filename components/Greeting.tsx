@@ -10,7 +10,7 @@ export default function Greeting() {
 
   return (
     <section ref={ref} className="py-20 px-6 bg-neutral-50">
-      <div className="max-w-2xl mx-auto text-center">
+      <div className="max-w-[500px] mx-auto text-center">
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           animate={isInView ? { opacity: 1, y: 0 } : {}}

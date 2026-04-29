@@ -32,18 +32,20 @@ export default function Home() {
       <AnimatePresence>
         {showIntro && <HandwritingIntro onComplete={() => setShowIntro(false)} />}
       </AnimatePresence>
-      <main className="min-h-screen">
-        <Hero />
-        <Greeting />
-        <Family />
-        <VideoSection />
-        <WeddingInfo />
-        <Gallery />
-        <Location />
-        <FlowerInfo />
-        <AccountInfo />
-        <Guestbook />
-        <Footer />
+      <main className="min-h-screen bg-white">
+        <div className="max-w-[500px] mx-auto shadow-2xl">
+          <Hero />
+          <Greeting />
+          <Family />
+          <VideoSection />
+          <WeddingInfo />
+          <Gallery />
+          <Location />
+          <FlowerInfo />
+          <AccountInfo />
+          <Guestbook />
+          <Footer />
+        </div>
       </main>
     </>
   )

@@ -35,14 +35,14 @@ export default function Family() {
     <>
       <section ref={ref} className="relative">
         {/* 상단 사진 영역 */}
-        <div className="relative h-[50vh] overflow-hidden max-w-2xl mx-auto">
+        <div className="relative h-[50vh] overflow-hidden max-w-[500px] mx-auto">
           <img
             src="/photo6.jpeg"
             alt="웨딩 사진"
             className="w-full h-full object-cover"
           />
           {/* 하단 그라데이션 */}
-          <div className="absolute bottom-0 left-0 right-0 h-56 bg-gradient-to-t from-[#FEFDFB] via-[#FEFDFB]/70 to-transparent" />
+          <div className="absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-white" />
         </div>
 
         {/* 가족 정보 영역 */}

@@ -15,7 +15,7 @@ const contacts = [
 export default function WeddingDayPage() {
   return (
     <main className="min-h-screen bg-white">
-      <div className="max-w-2xl mx-auto py-16 text-center px-6">
+      <div className="max-w-[500px] mx-auto py-16 text-center px-6">
         <div className="inline-block bg-[#f9f3ee] border border-[#e8d8c8] rounded-full px-5 py-2 mb-8">
           <p className="text-sm font-serif text-[#9b7f65] tracking-widest">✦ 오늘은 결혼식 날입니다 ✦</p>
         </div>
@@ -27,7 +27,7 @@ export default function WeddingDayPage() {
       <Location />
 
       {/* 혼주 연락처 */}
-      <div className="max-w-2xl mx-auto px-6 py-12">
+      <div className="max-w-[500px] mx-auto px-6 py-12">
         <h2 className="font-elegant text-2xl text-gray-700 text-center mb-8 tracking-widest">연락하기</h2>
         <div className="bg-white border border-gray-100 rounded-2xl shadow-sm overflow-hidden">
           {contacts.map((contact, index) => (
@@ -67,7 +67,7 @@ export default function WeddingDayPage() {
         </div>
       </div>
 
-      <div className="max-w-2xl mx-auto px-6 pb-16 text-center">
+      <div className="max-w-[500px] mx-auto px-6 pb-16 text-center">
         <Link
           href="/"
           className="inline-block px-8 py-4 border border-gray-300 text-gray-600 rounded-full font-serif text-sm hover:bg-gray-50 transition-colors tracking-widest"

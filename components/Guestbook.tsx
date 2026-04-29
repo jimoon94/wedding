@@ -140,7 +140,7 @@ export default function Guestbook() {
   return (
     <section ref={ref} className="bg-accent/30">
       {/* 상단 사진 */}
-      <div className="relative h-[45vh] overflow-hidden max-w-2xl mx-auto">
+      <div className="relative h-[45vh] overflow-hidden max-w-[500px] mx-auto">
         <img
           src="/last_img.JPG"
           alt="웨딩 사진"
@@ -149,7 +149,7 @@ export default function Guestbook() {
         <div className="absolute inset-0 bg-gradient-to-t from-[#F9F8F7] via-[#F9F8F7]/60 to-transparent" />
       </div>
 
-      <div className="max-w-2xl mx-auto px-6 pb-20">
+      <div className="max-w-[500px] mx-auto px-6 pb-20">
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           animate={isInView ? { opacity: 1, y: 0 } : {}}

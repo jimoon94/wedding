@@ -99,7 +99,7 @@ const SoapBubbles = () => {
 
 export default function Hero() {
   return (
-    <div className="w-full max-w-2xl mx-auto bg-white">
+    <div className="w-full max-w-[500px] mx-auto bg-white">
       {/* 메인 사진 - 3:4 세로 비율 */}
       <div className="relative w-full aspect-[3/4] overflow-hidden">
         <SoapBubbles />

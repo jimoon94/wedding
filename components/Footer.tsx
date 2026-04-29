@@ -49,7 +49,7 @@ export default function Footer() {
         whileInView={{ opacity: 1 }}
         transition={{ duration: 0.8 }}
         viewport={{ once: true }}
-        className="max-w-2xl mx-auto"
+        className="max-w-[500px] mx-auto"
       >
         <div className="mb-6">
           <p className="font-elegant text-lg mb-2">강은성 🤍 문지선</p>

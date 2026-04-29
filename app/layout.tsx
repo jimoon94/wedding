@@ -1,5 +1,5 @@
 import type { Metadata } from 'next'
-import { Dancing_Script, Poor_Story, Rouge_Script } from 'next/font/google'
+import { Dancing_Script, Poor_Story, Great_Vibes } from 'next/font/google'
 import Script from 'next/script'
 import './globals.css'
 
@@ -17,7 +17,7 @@ const poorStory = Poor_Story({
   variable: '--font-poor-story',
 })
 
-const rougeScript = Rouge_Script({
+const rougeScript = Great_Vibes({
   weight: '400',
   subsets: ['latin'],
   display: 'swap',
