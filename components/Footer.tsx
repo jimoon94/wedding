@@ -18,6 +18,8 @@ export default function Footer() {
         title: '강은성🤍문지선 결혼식에 초대합니다',
         description: '2026. 08. 01 SAT 오후 6:30 | 더 바실리움 웨딩홀',
         imageUrl: 'https://wedding-es-js.vercel.app/main_photo.jpg',
+        imageWidth: 800,
+        imageHeight: 1066,
         link: {
           mobileWebUrl: 'https://wedding-es-js.vercel.app',
           webUrl: 'https://wedding-es-js.vercel.app',
@@ -34,8 +36,8 @@ export default function Footer() {
         {
           title: '위치 보기',
           link: {
-            mobileWebUrl: 'https://place.map.kakao.com/518455120',
-            webUrl: 'https://place.map.kakao.com/518455120',
+            mobileWebUrl: 'https://wedding-es-js.vercel.app/location',
+            webUrl: 'https://wedding-es-js.vercel.app/location',
           },
         },
       ],
