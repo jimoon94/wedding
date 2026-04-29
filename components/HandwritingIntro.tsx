@@ -51,7 +51,7 @@ export default function HandwritingIntro({ onComplete }: { onComplete: () => voi
         transition={{ duration: 0.5 }}
       >
         {showText && (
-          <div className="text-6xl md:text-5xl font-elegant flex flex-col items-center justify-center gap-2">
+          <div className="text-6xl md:text-5xl flex flex-col items-center justify-center gap-2" style={{ fontFamily: 'var(--font-rouge-script)' }}>
             {lines.map((line, lineIndex) => {
               const characters = line.split('')
               return (

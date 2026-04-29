@@ -16,6 +16,7 @@ module.exports = {
         serif: ['Asta Sans', 'serif'],
         elegant: ['var(--font-poor-story)', 'serif'],
         script: ['var(--font-dancing-script)', 'cursive'],
+        rouge: ['var(--font-rouge-script)', 'cursive'],
       },
     },
   },

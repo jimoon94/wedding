@@ -1,5 +1,5 @@
 import type { Metadata } from 'next'
-import { Dancing_Script, Poor_Story } from 'next/font/google'
+import { Dancing_Script, Poor_Story, Rouge_Script } from 'next/font/google'
 import Script from 'next/script'
 import './globals.css'
 
@@ -15,6 +15,13 @@ const poorStory = Poor_Story({
   subsets: ['latin'],
   display: 'swap',
   variable: '--font-poor-story',
+})
+
+const rougeScript = Rouge_Script({
+  weight: '400',
+  subsets: ['latin'],
+  display: 'swap',
+  variable: '--font-rouge-script',
 })
 
 export const metadata: Metadata = {
@@ -38,7 +45,7 @@ export default function RootLayout({
   children: React.ReactNode
 }) {
   return (
-    <html lang="ko" className={`${dancingScript.variable} ${poorStory.variable}`}>
+    <html lang="ko" className={`${dancingScript.variable} ${poorStory.variable} ${rougeScript.variable}`}>
       <body>
         {children}
         <Script
