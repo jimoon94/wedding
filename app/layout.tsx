@@ -20,7 +20,7 @@ const poorStory = Poor_Story({
 const rougeScript = Great_Vibes({
   weight: '400',
   subsets: ['latin'],
-  display: 'swap',
+  display: 'block',
   variable: '--font-rouge-script',
 })
 
