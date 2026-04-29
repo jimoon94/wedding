@@ -25,10 +25,17 @@ export default function Footer() {
       },
       buttons: [
         {
-          title: '모바일 청첩장 보기',
+          title: '청첩장 보기',
           link: {
             mobileWebUrl: 'https://wedding-es-js.vercel.app',
             webUrl: 'https://wedding-es-js.vercel.app',
+          },
+        },
+        {
+          title: '위치 보기',
+          link: {
+            mobileWebUrl: 'https://place.map.kakao.com/518455120',
+            webUrl: 'https://place.map.kakao.com/518455120',
           },
         },
       ],
