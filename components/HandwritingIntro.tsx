@@ -3,16 +3,14 @@
 import { motion } from 'framer-motion'
 import { useEffect, useState } from 'react'
 
-const lines = ["We're", "Getting", "Married!"]
+const images = ['/hand_1.png', '/hand_2.png', '/hand_3.png']
 
 export default function HandwritingIntro({ onComplete }: { onComplete: () => void }) {
-  const [showText, setShowText] = useState(false)
+  const [visible, setVisible] = useState(false)
 
   useEffect(() => {
-    // 텍스트가 나타나는 애니메이션 시작
-    setShowText(true)
+    setVisible(true)
 
-    // 애니메이션 완료 후 메인 화면으로 전환 (약 4초 후)
     const timer = setTimeout(() => {
       onComplete()
     }, 3000)
@@ -28,44 +26,25 @@ export default function HandwritingIntro({ onComplete }: { onComplete: () => voi
       exit={{ opacity: 0 }}
       transition={{ duration: 0.8 }}
     >
-      <motion.div
-        className="text-center"
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ duration: 0.5 }}
-      >
-        {showText && (
-          <div className="flex flex-col items-center justify-center gap-2" style={{ fontFamily: 'var(--font-rouge-script)' }}>
-            {lines.map((line, lineIndex) => {
-              const characters = line.split('')
-              let charCount = lines.slice(0, lineIndex).join('').length
-              return (
-                <div key={lineIndex} className="flex items-center justify-center" style={{ letterSpacing: '-0.05em' }}>
-                  {characters.map((char, charIndex) => {
-                    const currentIndex = charCount + charIndex
-                    return (
-                      <motion.span
-                        key={charIndex}
-                        className="inline-block text-7xl text-black"
-                        initial={{ opacity: 0, y: 8 }}
-                        animate={{ opacity: 1, y: 0 }}
-                        transition={{
-                          duration: 0.4,
-                          delay: 0.2 + currentIndex * 0.1,
-                          ease: [0.25, 0.46, 0.45, 0.94]
-                        }}
-                      >
-                        {char}
-                      </motion.span>
-                    )
-                  })}
-                </div>
-              )
-            })}
-          </div>
-        )}
-      </motion.div>
+      {visible && (
+        <div className="flex flex-col items-center gap-1">
+          {images.map((src, i) => (
+            <motion.div
+              key={i}
+              className="overflow-hidden"
+              initial={{ clipPath: 'inset(0 100% 0 0)' }}
+              animate={{ clipPath: 'inset(0 0% 0 0)' }}
+              transition={{
+                duration: 0.7,
+                delay: i * 0.6,
+                ease: [0.25, 0.46, 0.45, 0.94],
+              }}
+            >
+              <img src={src} alt="" className="h-16 w-auto" />
+            </motion.div>
+          ))}
+        </div>
+      )}
     </motion.div>
   )
 }
-
