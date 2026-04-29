@@ -1,21 +1,20 @@
 import type { Metadata } from 'next'
-import { Diphylleia, Dancing_Script } from 'next/font/google'
+import { Dancing_Script, Poor_Story } from 'next/font/google'
 import Script from 'next/script'
 import './globals.css'
-
-const diphylleia = Diphylleia({
-  weight: '400',
-  subsets: ['latin'],
-  display: 'swap',
-  variable: '--font-diphylleia',
-  adjustFontFallback: false,
-})
 
 const dancingScript = Dancing_Script({
   weight: ['400', '700'],
   subsets: ['latin'],
   display: 'swap',
   variable: '--font-dancing-script',
+})
+
+const poorStory = Poor_Story({
+  weight: '400',
+  subsets: ['latin'],
+  display: 'swap',
+  variable: '--font-poor-story',
 })
 
 export const metadata: Metadata = {
@@ -39,7 +38,7 @@ export default function RootLayout({
   children: React.ReactNode
 }) {
   return (
-    <html lang="ko" className={`${diphylleia.variable} ${dancingScript.variable}`}>
+    <html lang="ko" className={`${dancingScript.variable} ${poorStory.variable}`}>
       <body>
         {children}
         <Script

@@ -2,19 +2,6 @@
 @tailwind components;
 @tailwind utilities;
 
-@font-face {
-  font-family: 'LXGWWenKaiKR';
-  src: url('https://cdn.jsdelivr.net/gh/lxgw/LxgwWenkaiKR@main/fonts/TTF/LXGWWenKaiKR-Regular.ttf') format('truetype');
-  font-weight: 400;
-  font-display: swap;
-}
-
-@font-face {
-  font-family: 'LXGWWenKaiKR';
-  src: url('https://cdn.jsdelivr.net/gh/lxgw/LxgwWenkaiKR@main/fonts/TTF/LXGWWenKaiKR-Light.ttf') format('truetype');
-  font-weight: 300;
-  font-display: swap;
-}
 
 @import url('https://fonts.googleapis.com/css2?family=Asta+Sans:wght@300..800&display=swap');
 
