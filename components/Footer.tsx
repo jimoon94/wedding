@@ -86,7 +86,7 @@ export default function Footer() {
         {/* 공유하기 버튼 */}
         <motion.button
           onClick={shareLink}
-          className="w-12 h-12 bg-[#5d5650] text-white rounded-full shadow-lg hover:bg-[#48423d] transition flex items-center justify-center"
+          className="w-12 h-12 bg-black text-white rounded-full shadow-lg hover:bg-[#48423d] transition flex items-center justify-center"
           whileHover={{ scale: 1.1 }}
           whileTap={{ scale: 0.95 }}
           aria-label="공유하기"
