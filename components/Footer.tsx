@@ -33,13 +33,6 @@ export default function Footer() {
             webUrl: 'https://wedding-es-js.vercel.app',
           },
         },
-        {
-          title: '위치 보기',
-          link: {
-            mobileWebUrl: 'https://wedding-es-js.vercel.app/location',
-            webUrl: 'https://wedding-es-js.vercel.app/location',
-          },
-        },
       ],
     })
   }
