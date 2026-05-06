@@ -1,6 +1,7 @@
 import type { Metadata } from 'next'
 import { Poor_Story } from 'next/font/google'
 import Script from 'next/script'
+import { Analytics } from '@vercel/analytics/next'
 import './globals.css'
 
 const poorStory = Poor_Story({
@@ -34,6 +35,7 @@ export default function RootLayout({
     <html lang="ko" className={poorStory.variable}>
       <body>
         {children}
+        <Analytics />
         <Script
           src="https://t1.kakaocdn.net/kakao_js_sdk/2.7.2/kakao.min.js"
           strategy="afterInteractive"
