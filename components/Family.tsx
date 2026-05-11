@@ -37,7 +37,7 @@ export default function Family() {
         {/* 상단 사진 영역 */}
         <div className="relative h-[50vh] overflow-hidden max-w-[500px] mx-auto">
           <img
-            src="/photo6.jpeg"
+            src="/photo10.jpg"
             alt="웨딩 사진"
             className="w-full h-full object-cover"
           />

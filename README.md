@@ -99,7 +99,7 @@ wedding-invitation/
 ### 1. 사진 교체하기
 
 `public/photos/` 폴더에 웨딩 사진을 추가하세요:
-- photo1.jpg ~ photo6.jpg
+- photo1.jpg ~ photo10.jpg
 - 필요한 만큼 사진 추가 가능
 
 `components/Gallery.tsx`에서 사진 배열 수정:
