@@ -142,7 +142,7 @@ export default function Guestbook() {
       {/* 상단 사진 */}
       <div className="relative h-[45vh] overflow-hidden max-w-[500px] mx-auto">
         <img
-          src="/last_img.JPG"
+          src="/last_img.jpg"
           alt="웨딩 사진"
           className="w-full h-full object-cover"
         />

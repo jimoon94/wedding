@@ -4,12 +4,12 @@ import Link from 'next/link'
 import Location from '@/components/Location'
 
 const contacts = [
-  { side: '신랑', name: '강은성', phone: '010-2071-4691' },
-  { side: '신랑 아버지', name: '강대홍', phone: '010-2071-4691' },
-  { side: '신랑 어머니', name: '김경자', phone: '010-2071-4691' },
+  { side: '신랑 아버지', name: '강대홍', phone: '010-9359-8591' },
+  { side: '신랑 어머니', name: '김경자', phone: '010-8932-8581' },
+  { side: '신랑', name: '강은성', phone: '010-2418-8443' },
+  { side: '신부 아버지', name: '문주철', phone: '010-4334-4691' },
+  { side: '신부 어머니', name: '박종순', phone: '010-4300-4691' },
   { side: '신부', name: '문지선', phone: '010-2071-4691' },
-  { side: '신부 아버지', name: '문주철', phone: '010-2071-4691' },
-  { side: '신부 어머니', name: '박종순', phone: '010-2071-4691' },
 ]
 
 export default function WeddingDayPage() {
