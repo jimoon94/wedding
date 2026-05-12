@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from 'react'
 import { useRouter } from 'next/navigation'
-import { AnimatePresence } from 'framer-motion'
+import { AnimatePresence, motion } from 'framer-motion'
 import Hero from '@/components/Hero'
 import Greeting from '@/components/Greeting'
 import Gallery from '@/components/Gallery'
@@ -14,7 +14,22 @@ import Footer from '@/components/Footer'
 import Family from '@/components/Family'
 import HandwritingIntro from '@/components/HandwritingIntro'
 import FlowerInfo from '@/components/flower_info'
-import VideoSection from '@/components/VideoSection'
+
+function FinSection() {
+  return (
+    <motion.div
+      className="relative w-full overflow-hidden"
+      initial={{ opacity: 0 }}
+      whileInView={{ opacity: 1 }}
+      transition={{ duration: 1.2 }}
+      viewport={{ once: true }}
+    >
+      <div className="absolute top-0 left-0 right-0 h-28 bg-gradient-to-b from-[#F9F8F7] to-transparent z-10" />
+      <img src="/fin.jpg" alt="" className="w-full object-cover" />
+      <div className="absolute bottom-0 left-0 right-0 h-28 bg-gradient-to-t from-[#FEFDFB] to-transparent z-10" />
+    </motion.div>
+  )
+}
 
 export default function Home() {
   const [showIntro, setShowIntro] = useState(true)
@@ -37,13 +52,13 @@ export default function Home() {
           <Hero />
           <Greeting />
           <Family />
-          <VideoSection />
           <WeddingInfo />
           <Gallery />
           <Location />
           <FlowerInfo />
           <AccountInfo />
           <Guestbook />
+          <FinSection />
           <Footer />
         </div>
       </main>

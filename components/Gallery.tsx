@@ -4,7 +4,7 @@ import { motion } from 'framer-motion'
 import { useInView } from 'framer-motion'
 import { useRef, useState } from 'react'
 import { Swiper, SwiperSlide } from 'swiper/react'
-import { Navigation, Pagination, Autoplay } from 'swiper/modules'
+import { Navigation, Pagination } from 'swiper/modules'
 import type { Swiper as SwiperType } from 'swiper'
 
 import 'swiper/css'
@@ -59,12 +59,12 @@ export default function Gallery() {
           className="mb-6"
         >
           <Swiper
-            modules={[Navigation, Pagination, Autoplay]}
+            modules={[Navigation, Pagination]}
             spaceBetween={30}
             slidesPerView={1}
             navigation
             pagination={{ clickable: true }}
-            autoplay={{ delay: 3000, disableOnInteraction: false }}
+            loop
             onSwiper={setSwiperInstance}
             className="rounded-lg overflow-hidden shadow-xl"
           >
