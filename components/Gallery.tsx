@@ -70,11 +70,12 @@ export default function Gallery() {
           >
             {photos.map((photo) => (
               <SwiperSlide key={photo.id}>
-                <div className="relative aspect-[3/4] bg-gray-200">
+                <div className="relative aspect-[3/4] bg-gray-200 select-none">
                   <img
                     src={photo.src}
                     alt={photo.alt}
-                    className="w-full h-full object-cover"
+                    className="w-full h-full object-cover pointer-events-none"
+                    draggable={false}
                     onError={(e) => {
                       const target = e.target as HTMLImageElement
                       target.src = `https://via.placeholder.com/800x600/D4AF7A/ffffff?text=${photo.alt}`
@@ -102,7 +103,8 @@ export default function Gallery() {
               <img
                 src={photo.src}
                 alt={photo.alt}
-                className="w-full h-full object-cover"
+                className="w-full h-full object-cover pointer-events-none"
+                draggable={false}
                 onError={(e) => {
                   const target = e.target as HTMLImageElement
                   target.src = `https://via.placeholder.com/150/D4AF7A/ffffff?text=${index + 1}`
