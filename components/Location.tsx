@@ -154,7 +154,7 @@ export default function Location() {
                 </div>
                 <p className="text-gray-700 ml-10 font-serif leading-relaxed">
                   건물 내 주차장 이용 가능<br />
-                  축의대쪽 주차 등록하셔야합니다.(2시간 무료 주차 지원)
+                  축의대쪽 주차 등록하셔야합니다.<br />(2시간 무료 주차 지원)
                 </p>
               </div>
             </div>
