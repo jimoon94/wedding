@@ -18,14 +18,14 @@ import FlowerInfo from '@/components/flower_info'
 function FinSection() {
   return (
     <motion.div
-      className="relative w-full overflow-hidden"
+      className="relative w-full overflow-hidden h-[400px]"
       initial={{ opacity: 0 }}
       whileInView={{ opacity: 1 }}
       transition={{ duration: 1.2 }}
       viewport={{ once: true }}
     >
       <div className="absolute top-0 left-0 right-0 h-28 bg-gradient-to-b from-[#F9F8F7] to-transparent z-10" />
-      <img src="/fin.jpg" alt="" className="w-full object-cover blur-[7px] scale-105" />
+      <img src="/fin.jpg" alt="" className="w-full object-cover blur-[7px]" />
       <div className="absolute inset-0 flex flex-col items-center justify-center z-10">
         <p className="font-elegant font-bold text-5xl tracking-widest text-gray-400">Coming Soon</p>
       </div>
