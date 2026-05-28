@@ -14,6 +14,7 @@ import Footer from '@/components/Footer'
 import Family from '@/components/Family'
 import HandwritingIntro from '@/components/HandwritingIntro'
 import FlowerInfo from '@/components/flower_info'
+import MusicPlayer from '@/components/MusicPlayer'
 
 function FinSection() {
   return (
@@ -47,6 +48,7 @@ export default function Home() {
 
   return (
     <>
+      <MusicPlayer />
       <AnimatePresence>
         {showIntro && <HandwritingIntro onComplete={() => setShowIntro(false)} />}
       </AnimatePresence>
