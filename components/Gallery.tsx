@@ -23,6 +23,8 @@ const photos = [
   { id: 8, src: '/photo8.jpg', alt: '웨딩 사진 8' },
   { id: 9, src: '/photo9.jpg', alt: '웨딩 사진 9' },
   { id: 10, src: '/photo10.jpg', alt: '웨딩 사진 10' },
+  { id: 11, src: '/photo11.jpg', alt: '웨딩 사진 11' },
+  { id: 12, src: '/photo12.jpg', alt: '웨딩 사진 12' },
 ]
 
 export default function Gallery() {
@@ -92,7 +94,7 @@ export default function Gallery() {
           initial={{ opacity: 0, y: 20 }}
           animate={isInView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.8, delay: 0.4 }}
-          className="grid grid-cols-5 gap-2"
+          className="grid grid-cols-6 gap-2"
         >
           {photos.map((photo, index) => (
             <button
