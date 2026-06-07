@@ -11,7 +11,6 @@ import 'swiper/css'
 import 'swiper/css/navigation'
 import 'swiper/css/pagination'
 
-// 실제 사진으로 교체하세요
 const photos = [
   { id: 1, src: '/photo1.jpg', alt: '웨딩 사진 1' },
   { id: 2, src: '/photo2.jpg', alt: '웨딩 사진 2' },
@@ -34,7 +33,7 @@ export default function Gallery() {
 
   const handleThumbnailClick = (index: number) => {
     if (swiperInstance) {
-      swiperInstance.slideTo(index)
+      swiperInstance.slideToLoop(index)
     }
   }
 
