@@ -13,7 +13,7 @@ export default function NoFlowerNotice() {
       ref={ref}
       className="py-20 px-6 relative"
       style={{
-        backgroundImage: 'url(/flower_img.jpg)',
+        backgroundImage: 'url(/flower_img.webp)',
         backgroundSize: 'cover',
         backgroundPosition: 'center',
       }}

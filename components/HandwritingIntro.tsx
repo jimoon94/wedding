@@ -3,7 +3,7 @@
 import { motion } from 'framer-motion'
 import { useEffect, useState } from 'react'
 
-const images = ['/hand_1.png', '/hand_2.png', '/hand_3.png']
+const images = ['/hand_1.webp', '/hand_2.webp', '/hand_3.webp']
 
 export default function HandwritingIntro({ onComplete }: { onComplete: () => void }) {
   const [visible, setVisible] = useState(false)

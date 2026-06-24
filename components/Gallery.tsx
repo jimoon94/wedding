@@ -12,18 +12,18 @@ import 'swiper/css/navigation'
 import 'swiper/css/pagination'
 
 const photos = [
-  { id: 1, src: '/photo1.jpg', alt: '웨딩 사진 1' },
-  { id: 2, src: '/photo2.jpg', alt: '웨딩 사진 2' },
-  { id: 3, src: '/photo3.jpg', alt: '웨딩 사진 3' },
-  { id: 4, src: '/photo4.jpg', alt: '웨딩 사진 4' },
-  { id: 5, src: '/photo5.jpg', alt: '웨딩 사진 5' },
-  { id: 6, src: '/photo6.jpg', alt: '웨딩 사진 6' },
-  { id: 7, src: '/photo7.jpg', alt: '웨딩 사진 7' },
-  { id: 8, src: '/photo8.jpg', alt: '웨딩 사진 8' },
-  { id: 9, src: '/photo9.jpg', alt: '웨딩 사진 9' },
-  { id: 10, src: '/photo10.jpg', alt: '웨딩 사진 10' },
-  { id: 11, src: '/photo11.jpg', alt: '웨딩 사진 11' },
-  { id: 12, src: '/photo12.jpg', alt: '웨딩 사진 12' },
+  { id: 1, src: '/photo1.webp', alt: '웨딩 사진 1' },
+  { id: 2, src: '/photo2.webp', alt: '웨딩 사진 2' },
+  { id: 3, src: '/photo3.webp', alt: '웨딩 사진 3' },
+  { id: 4, src: '/photo4.webp', alt: '웨딩 사진 4' },
+  { id: 5, src: '/photo5.webp', alt: '웨딩 사진 5' },
+  { id: 6, src: '/photo6.webp', alt: '웨딩 사진 6' },
+  { id: 7, src: '/photo7.webp', alt: '웨딩 사진 7' },
+  { id: 8, src: '/photo8.webp', alt: '웨딩 사진 8' },
+  { id: 9, src: '/photo9.webp', alt: '웨딩 사진 9' },
+  { id: 10, src: '/photo10.webp', alt: '웨딩 사진 10' },
+  { id: 11, src: '/photo11.webp', alt: '웨딩 사진 11' },
+  { id: 12, src: '/photo12.webp', alt: '웨딩 사진 12' },
 ]
 
 export default function Gallery() {
@@ -75,6 +75,7 @@ export default function Gallery() {
                   <img
                     src={photo.src}
                     alt={photo.alt}
+                    loading="lazy"
                     className="w-full h-full object-cover pointer-events-none"
                     draggable={false}
                     onError={(e) => {
@@ -104,6 +105,7 @@ export default function Gallery() {
               <img
                 src={photo.src}
                 alt={photo.alt}
+                loading="lazy"
                 className="w-full h-full object-cover pointer-events-none"
                 draggable={false}
                 onError={(e) => {

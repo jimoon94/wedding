@@ -111,7 +111,7 @@ export default function Hero() {
           transition={{ duration: 1.2 }}
         >
           <img
-            src="/main_photo.jpg"
+            src="/main_photo.webp"
             alt="메인 웨딩 사진"
             className="w-full h-full object-cover"
           />
